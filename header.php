@@ -52,57 +52,74 @@
                             <span class="icon-bar"></span>
                         </button>
                         <a class="navbar-brand" href="index.html">
-                            <img src="images/logo.png" alt="logo">
+                            <img src="<?php echo GenimoFrontEnd::getLogo($detail->company->idCompany) . '.png'; ?>" alt="logo" style="max-height: 80px;margin-bottom: 10px">
                         </a>
                     </div>
 
                     <!-- Collect the nav links, forms, and other content for toggling -->
                     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                         <ul class="nav navbar-nav nav_link pull-right">
-                            <li><a href="#" class="drop_down">HOME </a>
-                                <ul class="submenu">
-                                    <li><a href="index.html">Home</a> </li>
-                                    <li><a href="homepage-variation-1.html">homepage variation 1</a> </li>
-                                </ul>
+                            <li><a href="./" class="drop_down">INICIO</a>
+                                <!-- <ul class="submenu">
+                                     <li><a href="index.html">Inicio</a> </li>
+                                     <li><a href="homepage-variation-1.html">homepage variation 1</a> </li>
+                                 </ul> -->
                             </li>
-                            <li><a href="#" class="drop_down">PAGES </a>
-                                <ul class="submenu">
-                                    <li><a href="about_us.html">About Us</a> </li>
-                                    <li><a href="property-details.html">Property Detail</a> </li>
-                                    <li><a href="blog.html">Blog</a> </li>
-                                    <li><a href="blog_post.html">Blog Detail</a> </li>
-                                    <li><a href="gallery_2_columns.html">Gallery 2 Columns</a> </li>
-                                    <li><a href="gallery_3_columns.html">Gallery 3 Columns</a> </li>
-                                    <li><a href="shortcodes.html">Shortcodes</a> </li>
-                                    <li><a href="page_with_left_sidebar.html">page with left sidebar</a> </li>
-                                    <li><a href="page_with_right_sidebar.html">page with right sidebar</a> </li>
-                                    <li><a href="faq.html">FAQ</a> </li>
-                                    <li><a href="contact.html">Contact us</a> </li>
-                                </ul>
-                            </li>
-                            <li><a href="#" class="drop_down">PROPERTIES</a>
-                                <ul class="submenu">
-                                    <li><a href="property-listing-list.html">List View</a> </li>
-                                    <li><a href="property-listing-grid.html">Grid View</a> </li>
-                                    <li><a href="property-listing-map.html">Map View</a> </li>
-                                    <li><a href="property-details.html">Property Detail</a> </li>
-                                </ul>
-                            </li>
-                            <li><a href="#" class="drop_down">GALLERY </a>
-                                <ul class="submenu">
-                                    <li><a href="gallery_2_columns.html">Gallery 2 Columns</a> </li>
-                                    <li><a href="gallery_3_columns.html">Gallery 3 Columns</a> </li>
-                                </ul>
-                            </li>
-                            <li><a href="#" class="drop_down">BLOG </a>
-                                <ul class="submenu">
-                                    <li><a href="blog.html">Blog</a> </li>
-                                    <li><a href="blog_post.html">Blog Post</a> </li>
-                                </ul>
-                            </li>
-                            <li><a href="contact.html">CONTACT </a> </li>
+                            <?php
+                            $vet = $detail->modes;
+                            foreach ($vet as $obj) {
+                                echo '<li><a href = "property-listing-list.php?mode=' . $obj->id . '">' . $obj->ds . '</a></li>';
+                            }
+                            ?>
+                            <!--
+                              <li><a href="#" class="drop_down">PROPERTIES</a>
+                                  <ul class="submenu">
+                                      <li><a href="property-listing-list.html">List View</a> </li>
+                                      <li><a href="property-listing-grid.html">Grid View</a> </li>
+                                      <li><a href="property-listing-map.html">Map View</a> </li>
+                                      <li><a href="property-details.html">Property Detail</a> </li>
+                                  </ul>
+                              </li>
+                              <li><a href="#" class="drop_down">GALLERY </a>
+                                  <ul class="submenu">
+                                      <li><a href="gallery_2_columns.html">Gallery 2 Columns</a> </li>
+                                      <li><a href="gallery_3_columns.html">Gallery 3 Columns</a> </li>
+                                  </ul>
+                              </li> -->
+                            <!--   <li><a href="#" class="drop_down">PESQUISAR </a>
+                                   <ul class="submenu">
+                                       <li>
+                                           <label>Tipo do negócio
+                                               <select>
+                                                   <option>Venda</option>
+                                                   <option>Aluguel</option>
+                                               </select>
+                                           </label>
+                                       </li>
+                                       <li>
+                                           <label>Categoria<br>
+                                               <select>
+                                                   <option>Venda</option>
+                                                   <option>Aluguel</option>
+                                               </select>
+                                           </label>
+                                       </li>
+                                       <li>
+                                           <label>Cidade<br>
+                                               <select>
+                                                   <option>Venda</option>
+                                                   <option>Aluguel</option>
+                                               </select>
+                                           </label>
+                                       </li>
+
+                                       <li><<input type="button" value="Pesquuiar"/></li>
+                                   </ul>
+                               </li>-->
+                            <li><a href="contact.html">CONTATOS </a> </li>
                         </ul>
                     </div><!-- /.navbar-collapse -->
+
                 </div><!-- /.container-fluid -->
             </nav>
         </div>
@@ -112,9 +129,17 @@
                     <i class="fa fa-phone"> </i>
                 </div>
                 <div class="phone_number">
-                    <h5>call us now</h5>
-                    <h2 class="phone_number_h2">215-123-4567</h2>
+                    <h5 id="txtDescFone"></h5>
+                    <h4 id="txtNrFone"></h4>
                 </div>
+                <script>
+                    var mBranch = <?php
+                            //var_dump($detail->company->branchs);
+                            //die();
+                            echo json_encode($detail->company->branchs) . ";";
+                            ?>
+                    viewController.showFones(viewController, mBranch, 'txtDescFone', 'txtNrFone');
+                </script>
             </div>
         </div>
     </div>
@@ -125,12 +150,18 @@
                 <?php
                 $vet = $detail->property->images;
                 $i = '';
+                $spot = '';
                 foreach ($vet as $obj) {
+                    if ($i < 1) {
+                        $spot = $obj->dsImagePath . '/' . $obj->nmFileName;
+                    }
                     if ($obj->flSpotlight == "1") {
                         $i = 'active_image';
                     }
                     echo '<img alt="banner-image" class="img-responsive ' . $i . ' image_header " src="' . $obj->dsImagePath . '/' . $obj->nmFileName . '">';
-
+                    if ($obj->flSpotlight == 1) {
+                        $spot = $obj->dsImagePath . '/' . $obj->nmFileName;
+                    }
                     $i = '';
                 }
                 ?>
@@ -181,13 +212,25 @@
                                         ?></p>
                             <div class="row property-detail-facility">
                                 <div class="col-xs-12 col-sm-3 col-md-3"><label class="property-detail-price"><small><?php echo $vlSale . ' ' . $vlRent . ' ' . $vlSeasonRent . ' ' . $vlSeasonRent; ?></small></label></div>
-                                <?php
-                                if (!empty($detail->property->amBathroom)) {
-                                    echo '<div class="col-xs-12 col-sm-3 col-md-3 property-detail-facility-icon"><img src="images/svg/bath.svg" class="svgImages" alt="bathroom"><label>Banheiros</label><span>' . $detail->property->amBathroom . '</span></div>';
-                                }
-                                ?>
-                                <div class="col-xs-12 col-sm-3 col-md-3 property-detail-facility-icon"><img src="images/svg/bed.svg" class="svgImages" alt="bedroom"><label>Quarto</label><span><?php echo $detail->property->amRooms + $detail->property->amSuite; ?></span></div>
-                                <div class="col-xs-12 col-sm-3 col-md-3 property-detail-facility-icon"><img src="images/svg/warehouse.svg" class="svgImages" alt="garages"><label>Garagem</label><span><?php echo $detail->property->amGarage; ?></span></div>
+                                            <?php
+                                            if (!empty($detail->property->amBathroom)) {
+                                                echo '<div class="col-xs-12 col-sm-3 col-md-3 property-detail-facility-icon"><img src="images/svg/bath.svg" class="svgImages" alt="bathroom"><label>Banheiros</label><span>' . $detail->property->amBathroom . '</span></div>';
+                                            }
+                                            if (!empty($detail->property->amRooms) && $detail->property->amRooms > 0) {
+                                                echo '<div class="col-xs-12 col-sm-3 col-md-3 property-detail-facility-icon"><img src="images/svg/bed.svg" class="svgImages" alt="bedroom"><label>Quarto</label><span>' . $detail->property->amRooms . '</span></div>';
+                                            }
+                                            if (!empty($detail->property->amSuite) && $detail->property->amSuite > 0) {
+                                                echo '<div class="col-xs-12 col-sm-3 col-md-3 property-detail-facility-icon"><img src="images/svg/bed.svg" class="svgImages" alt="bedroom"><label>Suite</label><span>' . $detail->property->amSuite . '</span></div>';
+                                            }
+                                            if (!empty($detail->property->amGarage)) {
+                                                echo ' <div class="col-xs-12 col-sm-3 col-md-3 property-detail-facility-icon"><img src="images/svg/warehouse.svg" class="svgImages" alt="garages"><label>Garagem</label><span>' . $detail->property->amGarage . '</span></div>';
+                                            }
+                                            if (!empty($detail->property->vlPropertyTotalArea) && $detail->property->vlPropertyTotalArea > 0) {
+                                                echo ' <div class="col-xs-12 col-sm-3 col-md-3 property-detail-facility-icon"><img src="images/svg/area_2.svg" class="svgImages" alt="garages"><span>' . $detail->property->vlPropertyTotalArea . '</span></div>';
+                                            }
+                                            ?>
+
+
                             </div>
                         </div>
                     </div>

@@ -7,6 +7,7 @@
  */
         const ID_COMPANY = '67';
         const URL_FIND_BY_ID = "https://genimo.com.br/api/site/property/";
+        const URL_LOGO_IMOBILIARIA = "https://genimo.com.br/logos/";
 
 class GenimoFrontEnd {
 
@@ -15,7 +16,7 @@ class GenimoFrontEnd {
 
         $mURL = URL_FIND_BY_ID . ID_COMPANY . "/" . $id;
 
-        echo $mURL;
+        //echo $mURL;
 
         return GenimoFrontEnd::getJsonFromUrl($mURL);
     }
@@ -23,6 +24,44 @@ class GenimoFrontEnd {
     public static final function getJsonFromUrl($url) {
         $jsonRet = file_get_contents($url);
         return json_decode($jsonRet);
+    }
+
+    public static final function getLogo($id) {
+        return URL_LOGO_IMOBILIARIA . $id;
+    }
+
+    public static final function addSiteContact($nmPerson, $dsEmail, $nuPhone, $dsApproach, $idProperty) {
+        $url = 'https://genimo.com.br/site/addSiteContact';
+        $fields = array(
+            'idCompany' => ID_COMPANY,
+            'nmPerson' => urlencode($nmPerson),
+            'dsEmail' => urlencode($dsEmail),
+            'nuPhone' => urlencode($nuPhone),
+            'dsApproach' => urlencode($dsApproach),
+            'idProperty' => urlencode($idProperty)
+        );
+
+        var_dump($fields);
+
+//url-ify the data for the POST
+        foreach ($fields as $key => $value) {
+            $fields_string .= $key . '=' . $value . '&';
+        }
+        rtrim($fields_string, '&');
+
+//open connection
+        $ch = curl_init();
+
+//set the url, number of POST vars, POST data
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_POST, count($fields));
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $fields_string);
+
+//execute post
+        $result = curl_exec($ch);
+
+//close connection
+        curl_close($ch);
     }
 
 }
