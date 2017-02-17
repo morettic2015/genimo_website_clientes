@@ -140,54 +140,54 @@ $detail = GenimoFrontEnd::getDetail($id);
                                     <div class="row amenities-info">
                                         <?php
                                         if ($detail->property->flBarbecueGrill == 1) {
-                                            echo '<div class="col-lg-1 col-md-1 col-sm-2 col-xs-2 inofrmaition-label"></div>';
+                                            echo '<div class="col-lg-1 col-md-1 col-sm-2 col-xs-2 inofrmaition-label"><img src="images/svg/barbecue.svg" class="svgImages" alt="space"/></div>';
                                             echo '<div class="col-lg-11 col-md-11 col-sm-10 col-xs-10 information-value">Churrasqueira</div>';
                                         }
 
                                         if ($detail->property->flFireplace == 1) {
-                                            echo '<div class="col-lg-1 col-md-1 col-sm-2 col-xs-2 inofrmaition-label"></div>';
-                                            echo '<div class="col-lg-11 col-md-11 col-sm-10 col-xs-10 information-value">Larerira</div>';
+                                            echo '<div class="col-lg-1 col-md-1 col-sm-2 col-xs-2 inofrmaition-label"><img src="images/svg/fireplace.svg" class="svgImages" alt="space"/></div>';
+                                            echo '<div class="col-lg-11 col-md-11 col-sm-10 col-xs-10 information-value">Lareira</div>';
                                         }
                                         if ($detail->property->flCloset == 1) {
                                             echo '<div class="col-lg-1 col-md-1 col-sm-2 col-xs-2 inofrmaition-label"><img src="images/svg/cabinet.svg" class="svgImages" alt="space"/></div>';
                                             echo '<div class="col-lg-11 col-md-11 col-sm-10 col-xs-10 information-value">Closet</div>';
                                         }
                                         if ($detail->property->flLavatory == 1) {
-                                            echo '<div class="col-lg-1 col-md-1 col-sm-2 col-xs-2 inofrmaition-label"></div>';
+                                            echo '<div class="col-lg-1 col-md-1 col-sm-2 col-xs-2 inofrmaition-label"><img src="images/svg/bath.svg" class="svgImages" alt="space"/></div>';
                                             echo '<div class="col-lg-11 col-md-11 col-sm-10 col-xs-10 information-value">Lavabo</div>';
                                         }
                                         if ($detail->property->flLaundry == 1) {
-                                            echo '<div class="col-lg-1 col-md-1 col-sm-2 col-xs-2 inofrmaition-label"></div>';
+                                            echo '<div class="col-lg-1 col-md-1 col-sm-2 col-xs-2 inofrmaition-label"><img src="images/svg/laundry.svg" class="svgImages" alt="space"/></div>';
                                             echo '<div class="col-lg-11 col-md-11 col-sm-10 col-xs-10 information-value">Lavanderia</div>';
                                         }
                                         if ($detail->property->flBalcony == 1) {
-                                            echo '<div class="col-lg-1 col-md-1 col-sm-2 col-xs-2 inofrmaition-label"></div>';
+                                            echo '<div class="col-lg-1 col-md-1 col-sm-2 col-xs-2 inofrmaition-label"><img src="images/svg/balcony.svg" class="svgImages" alt="space"/></div>';
                                             echo '<div class="col-lg-11 col-md-11 col-sm-10 col-xs-10 information-value">Sacada</div>';
                                         }
                                         if ($detail->property->flServiceArea == 1) {
-                                            echo '<div class="col-lg-1 col-md-1 col-sm-2 col-xs-2 inofrmaition-label"></div>';
+                                            echo '<div class="col-lg-1 col-md-1 col-sm-2 col-xs-2 inofrmaition-label"><img src="images/svg/service_area.svg" class="svgImages" alt="space"/></div>';
                                             echo '<div class="col-lg-11 col-md-11 col-sm-10 col-xs-10 information-value">Área de Serviço</div>';
                                         }
                                         if ($detail->property->flPool == 1) {
-                                            echo '<div class="col-lg-1 col-md-1 col-sm-2 col-xs-2 inofrmaition-label"></div>';
+                                            echo '<div class="col-lg-1 col-md-1 col-sm-2 col-xs-2 inofrmaition-label"><img src="images/svg/swiming_pool.svg" class="svgImages" alt="space"/></div>';
                                             echo '<div class="col-lg-11 col-md-11 col-sm-10 col-xs-10 information-value">Piscina</div>';
                                         }
                                         if ($detail->property->flHeatedPool == 1) {
-                                            echo '<div class="col-lg-1 col-md-1 col-sm-2 col-xs-2 inofrmaition-label"></div>';
+                                            echo '<div class="col-lg-1 col-md-1 col-sm-2 col-xs-2 inofrmaition-label"><img src="images/svg/hot_pool.svg" class="svgImages" alt="space"/></div>';
                                             echo '<div class="col-lg-11 col-md-11 col-sm-10 col-xs-10 information-value">Piscina Aquecida</div>';
                                         }
-                                        if (!empty($detail->property->tpFloor)) {
-                                            echo '<div class="col-lg-1 col-md-1 col-sm-2 col-xs-2 inofrmaition-label"></div>';
-                                            echo '<div class="col-lg-11 col-md-11 col-sm-10 col-xs-10 information-value">' . $detail->property->tpFloor . '</div>';
-                                        }
+                                        /*   if (!empty($detail->property->tpFloor)) {
+                                          echo '<div class="col-lg-1 col-md-1 col-sm-2 col-xs-2 inofrmaition-label"></div>';
+                                          echo '<div class="col-lg-11 col-md-11 col-sm-10 col-xs-10 information-value">' . $detail->property->tpFloor . '</div>';
+                                          } */
                                         ?>
                                     </div>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-lg-6 col-md-6">
-                                    <h4>Interior</h4>
-                                    <div class="row">
+                                    <h4>Informações Adicionas</h4>
+                                    <div class="row amenities-info">
 
                                         <?php
                                         if (!(empty($detail->property->tpFurnished)) && $detail->property->tpFurnished > 1) {
@@ -195,104 +195,157 @@ $detail = GenimoFrontEnd::getDetail($id);
                                             echo '<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 inofrmaition-label">Mobilia</div>';
                                             echo '<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 information-value">' . $mobilia . '</div>';
                                         }
+                                        if ($detail->property->flWifi > 0) {
+                                            echo '<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 inofrmaition-label"><img src="images/svg/wifi.svg" class="svgImages" alt="space"/></div>';
+                                            echo '<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 information-value">Wifi</div>';
+                                        }
+                                        if ($detail->property->flGym > 0) {
+                                            echo '<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 inofrmaition-label"><img src="images/svg/gym.svg" class="svgImages" alt="space"/></div>';
+                                            echo '<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 information-value">Academia</div>';
+                                        }
+                                        if ($detail->property->flAccessChallengedPeople > 0) {
+                                            echo '<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 inofrmaition-label"><img src="images/svg/accessibility_12.svg" class="svgImages" alt="space"/></div>';
+                                            echo '<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 information-value">Acessibilidade</div>';
+                                        }
+                                        if ($detail->property->flCollectiveBarbecue > 0) {
+                                            echo '<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 inofrmaition-label"><img src="images/svg/colective_barbecue.svg" class="svgImages" alt="space"/></div>';
+                                            echo '<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 information-value">Churrasqueira coletiva</div>';
+                                        }
+                                        if ($detail->property->flElevator > 0) {
+                                            echo '<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 inofrmaition-label"><img src="images/svg/elevator.svg" class="svgImages" alt="space"/></div>';
+                                            echo '<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 information-value">Elevador</div>';
+                                        }
+                                        if ($detail->property->flGarden > 0) {
+                                            echo '<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 inofrmaition-label"><img src="images/svg/garden.svg" class="svgImages" alt="space"/></div>';
+                                            echo '<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 information-value">Jardim</div>';
+                                        }
+                                        if ($detail->property->flPlayground > 0) {
+                                            echo '<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 inofrmaition-label"><img src="images/svg/playground.svg" class="svgImages" alt="space"/></div>';
+                                            echo '<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 information-value">Playground</div>';
+                                        }
+                                        if ($detail->property->flOrdinance > 0) {
+                                            echo '<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 inofrmaition-label"><img src="images/svg/ordinance123.svg" class="svgImages" alt="space"/></div>';
+                                            echo '<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 information-value">Portaria 24h</div>';
+                                        }
+                                        if ($detail->property->flSportsCourt > 0) {
+                                            echo '<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 inofrmaition-label"><img src="images/svg/court.svg" class="svgImages" alt="space"/></div>';
+                                            echo '<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 information-value">Quadra de Esportes</div>';
+                                        }
+                                        if ($detail->property->flLoungeParties > 0) {
+                                            echo '<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 inofrmaition-label"><img src="images/svg/party123.svg" class="svgImages" alt="space"/></div>';
+                                            echo '<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 information-value">Salão de festas</div>';
+                                        }
+                                        if ($detail->property->flCaretaker > 0) {
+                                            echo '<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 inofrmaition-label"><img src="images/svg/caretaker.svg" class="svgImages" alt="space"/></div>';
+                                            echo '<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 information-value">Zelador</div>';
+                                        }
+                                        if ($detail->property->flCabletv > 0) {
+                                            echo '<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 inofrmaition-label"><img src="images/svg/TV.svg" class="svgImages" alt="space"/></div>';
+                                            echo '<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 information-value">TV a cabo</div>';
+                                        }
+                                        if ($detail->property->flAC > 0) {
+                                            echo '<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 inofrmaition-label"><img src="images/svg/ac.svg" class="svgImages" alt="space"/></div>';
+                                            echo '<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 information-value">Ar condicionado</div>';
+                                        }
+                                        if ($detail->property->flGasHeating > 0) {
+                                            echo '<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 inofrmaition-label"><img src="images/svg/gas_heating.svg" class="svgImages" alt="space"/></div>';
+                                            echo '<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 information-value">Aquecimento a gás</div>';
+                                        }
+                                        if ($detail->property->flIndividualHydrometer > 0) {
+                                            echo '<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 inofrmaition-label"><img src="images/svg/hydrometer.svg" class="svgImages" alt="space"/></div>';
+                                            echo '<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 information-value">Hidrômetro individual</div>';
+                                        }
                                         ?>
 
-                                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 inofrmaition-label">Heating</div>
-                                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 information-value">Forced Air-1</div>
 
-                                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 inofrmaition-label">Basement</div>
-                                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 information-value">Fully Finished</div>
-
-                                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 inofrmaition-label">Basement Type</div>
-                                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 information-value">Full</div>
                                     </div>
 
-                                    <h4>Exterior</h4>
-                                    <div class="row">
-                                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 inofrmaition-label">Exterior</div>
-                                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 information-value">Vinyl</div>
+                                    <!--  <h4>Exterior</h4>
+                                      <div class="row">
+                                          <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 inofrmaition-label">Exterior</div>
+                                          <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 information-value">Vinyl</div>
 
-                                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 inofrmaition-label">Roof</div>
-                                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 information-value">Asphalt Shingles</div>
+                                          <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 inofrmaition-label">Roof</div>
+                                          <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 information-value">Asphalt Shingles</div>
 
-                                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 inofrmaition-label">Construction</div>
-                                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 information-value">Woodframe</div>
+                                          <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 inofrmaition-label">Construction</div>
+                                          <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 information-value">Woodframe</div>
 
-                                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 inofrmaition-label">Foundation</div>
-                                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 information-value">Concrete</div>
+                                          <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 inofrmaition-label">Foundation</div>
+                                          <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 information-value">Concrete</div>
 
-                                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 inofrmaition-label">Frunt Exposure</div>
-                                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 information-value">N</div>
+                                          <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 inofrmaition-label">Frunt Exposure</div>
+                                          <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 information-value">N</div>
 
-                                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 inofrmaition-label">Fontage Metres</div>
-                                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 information-value">9,000</div>
-                                    </div>
+                                          <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 inofrmaition-label">Fontage Metres</div>
+                                          <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 information-value">9,000</div>
+                                      </div> -->
 
-                                    <h4>Flooring</h4>
-                                    <div class="row">
-                                        <div class="col-lg-12 col-md-12">
-                                            <p>Carpet, Laminate Flooring, Linoleum</p>
-                                        </div>
-                                    </div>
+                                    <!--  <h4>Flooring</h4>
+                                      <div class="row">
+                                          <div class="col-lg-12 col-md-12">
+                                              <p>Carpet, Laminate Flooring, Linoleum</p>
+                                          </div>
+                                      </div> -->
                                 </div>
 
                                 <div class="col-lg-6 col-md-6">
-                                    <h4>Dimensões</h4>
+                                    <h4>Área </h4>
                                     <div class="row">
                                         <?php
                                         if (!empty($detail->property->vlAreaM2C) && $detail->property->vlAreaM2C > 0) {
-                                            echo '<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 inofrmaition-label">Área privativa</div>';
-                                            echo '<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 information-value">' . $detail->property->vlAreaM2C . '</div>';
+                                            echo '<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 inofrmaition-label">Privativa</div>';
+                                            echo '<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 information-value" align="rigth">' . $detail->property->vlAreaM2C . ' m²</div>';
                                         }
                                         if (!empty($detail->property->vlAreaM2) && $detail->property->vlAreaM2 > 0) {
-                                            echo '<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 inofrmaition-label">Área útil</div>';
-                                            echo '<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 information-value">' . $detail->property->vlAreaM2 . '</div>';
+                                            echo '<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 inofrmaition-label">Útil</div>';
+                                            echo '<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 information-value">' . $detail->property->vlAreaM2 . ' m²</div>';
                                         }
                                         if (!empty($detail->property->vlGroundAreaC) && $detail->property->vlGroundAreaC > 0) {
-                                            echo '<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 inofrmaition-label">Área total</div>';
-                                            echo '<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 information-value">' . $detail->property->vlGroundAreaC . '</div>';
+                                            echo '<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 inofrmaition-label">Total</div>';
+                                            echo '<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 information-value">' . $detail->property->vlGroundAreaC . ' m²</div>';
                                         }
                                         if (!empty($detail->property->vlGaragePrivateArea) && $detail->property->vlGaragePrivateArea > 0) {
-                                            echo '<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 inofrmaition-label">Area privativa da garagem</div>';
-                                            echo '<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 information-value">' . $detail->property->vlGaragePrivateArea . '</div>';
+                                            echo '<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 inofrmaition-label">Privativa da garagem</div>';
+                                            echo '<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 information-value">' . $detail->property->vlGaragePrivateArea . ' m²</div>';
                                         }
                                         if (!empty($detail->property->vlGarageFloorArea) && $detail->property->vlGarageFloorArea > 0) {
-                                            echo '<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 inofrmaition-label">Area útil da garagem</div>';
-                                            echo '<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 information-value">' . $detail->property->vlGarageFloorArea . '</div>';
+                                            echo '<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 inofrmaition-label">Útil da garagem</div>';
+                                            echo '<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 information-value">' . $detail->property->vlGarageFloorArea . ' m²</div>';
                                         }
                                         if (!empty($detail->property->vlGarageArea) && $detail->property->vlGarageArea > 0) {
-                                            echo '<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 inofrmaition-label">Area total da garagem</div>';
-                                            echo '<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 information-value">' . $detail->property->vlGarageArea . '</div>';
+                                            echo '<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 inofrmaition-label">Total da garagem</div>';
+                                            echo '<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 information-value">' . $detail->property->vlGarageArea . ' m²</div>';
                                         }
                                         if (!empty($detail->property->vlStorageArea) && $detail->property->vlStorageArea > 0) {
-                                            echo '<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 inofrmaition-label">Area de depósito</div>';
-                                            echo '<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 information-value">' . $detail->property->vlStorageArea . '</div>';
+                                            echo '<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 inofrmaition-label">Depósito</div>';
+                                            echo '<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 information-value">' . $detail->property->vlStorageArea . ' m²</div>';
                                         }
                                         if (!empty($detail->property->vlPropertyTotalArea) && $detail->property->vlPropertyTotalArea > 0) {
-                                            echo '<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 inofrmaition-label">Area total do imóvel</div>';
-                                            echo '<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 information-value">' . $detail->property->vlPropertyTotalArea . '</div>';
+                                            echo '<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 inofrmaition-label">Imóvel</div>';
+                                            echo '<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 information-value">' . $detail->property->vlPropertyTotalArea . ' m²</div>';
                                         }
                                         if (!empty($detail->property->vlGroundArea) && $detail->property->vlGroundArea > 0) {
-                                            echo '<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 inofrmaition-label">Area total do terreno</div>';
-                                            echo '<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 information-value">' . $detail->property->vlPropertyTotalArea . '</div>';
+                                            echo '<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 inofrmaition-label">Terreno</div>';
+                                            echo '<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 information-value">' . $detail->property->vlGroundArea . ' m²</div>';
                                         }
                                         if (!empty($detail->property->vlHeight) && $detail->property->vlHeight > 0) {
                                             echo '<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 inofrmaition-label">Altura</div>';
-                                            echo '<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 information-value">' . $detail->property->vlHeight . '</div>';
+                                            echo '<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 information-value">' . $detail->property->vlHeight . 'm</div>';
                                         }
                                         if (!empty($detail->property->vlIdealFraction) && $detail->property->vlIdealFraction > 0) {
                                             echo '<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 inofrmaition-label">Fração ideal%</div>';
-                                            echo '<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 information-value">' . $detail->property->vlIdealFraction . '</div>';
+                                            echo '<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 information-value">' . $detail->property->vlIdealFraction . ' %</div>';
                                         }
                                         ?>
                                     </div>
 
-                                    <h4>Goods Included</h4>
-                                    <div class="row">
-                                        <div class="col-lg-12 col-md-12">
-                                            <p>Dryer, Dishwasher-Build-in, Hood garage Opener-1 Control, Washer, Window Covering-All, Blinds-Roll Up; Pull Down, Fan-Celling, refrigeratores-Two, Stoves-Two</p>
-                                        </div>
-                                    </div>
+                                    <!-- <h4>Goods Included</h4>
+                                     <div class="row">
+                                         <div class="col-lg-12 col-md-12">
+                                             <p>Dryer, Dishwasher-Build-in, Hood garage Opener-1 Control, Washer, Window Covering-All, Blinds-Roll Up; Pull Down, Fan-Celling, refrigeratores-Two, Stoves-Two</p>
+                                         </div>
+                                     </div>-->
                                 </div>
                             </div>
                             <div class="row">
