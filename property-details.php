@@ -380,28 +380,34 @@ $detail = GenimoFrontEnd::getDetail($id);
                         <div class="col-lg-4 col-md-4">
                             <div class="agent-contact-sidebar">
                                 <div class="agent-profile-sidebar">
-                                    <img src="<?php echo $detail->property->bookies[0]->dsPathAvatar; ?>" alt="Corretor" />
-                                    <h4><?php echo $detail->property->bookies[0]->nmPerson; ?></h4>
-                                    <p>Corretor</p>
+                                    <img id="logoAvatar" src="<?php echo $detail->property->bookies[0]->dsPathAvatar; ?>" alt="Corretor" />
+                                    <h4 id="txtNmPerson"><?php echo $detail->property->bookies[0]->nmPerson; ?></h4>
+                                    <p id="txtFlCompany"><?php echo $detail->property->bookies[0]->flCompany == "1" ? 'Imobiliária' : 'Corretor'; ?></p>
                                 </div>
                                 <div class="agent-contact-detail-sidebar">
-                                    <p><i class="fa fa-phone"> </i><?php echo $detail->property->bookies[0]->nuCelPhone; ?></p>
-                                    <p><i class="fa fa-envelope"></i><a href="#"><?php echo $detail->property->bookies[0]->dsEmail; ?></a></p>
+                                    <p id="txtNrFoneCorretor"><i class="fa fa-phone"> </i><?php echo $detail->property->bookies[0]->nuCelPhone; ?></p>
+                                    <p><i class="fa fa-envelope"></i><a href="#" id="txtEmailCorretor"><?php echo $detail->property->bookies[0]->dsEmail; ?></a></p>
                                 </div>
                                 <div class="agent-contact-form-sidebar">
                                     <h5>Fale conosco</h5>
-                                    <form name="contact_form" method="post" action="<?php ?>">
+
+
+                                    <form name="contact_form" method="post" action="<?php ?>" onsubmit="return viewController.validateForm(document.contact_form.full_name, document.contact_form.phone_number, document.contact_form.email_address, document.contact_form.message)">
                                         <?php
                                         if (!empty($_POST['id'])) {
-                                            GenimoFrontEnd::addSiteContact($_POST['full_name'], $_POST['email_address'], $_POST['phone_number'], $_POST['message'], $id);
+                                            GenimoFrontEnd::addSiteContact($_POST['full_name'], $_POST['email_address'], $_POST['phone_number'], $_POST['message'], $id, $_POST['idBookie'], $_POST['tp_contact']);
                                         }
                                         ?>
-                                        <input type="text" id="fname" name="full_name" placeholder="Full Name" required />
-                                        <input type="number" id="pnumber" name="phone_number" placeholder="Phone Number" required />
-                                        <input type="email" id="emailid" name="email_address" placeholder="Email Address" required />
+                                        <input type="text" id="fname" name="full_name" placeholder="Nome completo" required />
+                                        <input type="number" id="pnumber" name="phone_number" placeholder="Número telefone" required onkeypress="mascara(this, mtel)"/>
+                                        <input type="email" id="emailid" name="email_address" placeholder="Endereço de email" required />
                                         <input type="hidden" id="id" name="id" placeholder="Email Address" required value="<?php echo $id; ?>"/>
-                                        <textarea placeholder="Message" name="message" required></textarea>
-                                        <input type="submit" name="sendmessage" class="multiple-send-message" value="Submit Request" />
+                                        <input type="hidden" id="idBookie" name="idBookie"/>
+                                        <textarea placeholder="Mensagem" name="message" required></textarea>
+                                        <h6>Prefere contato por:</h6>
+                                        <label> Telefone<input type="radio" name="tp_contact" value="1"></label>
+                                        <label> Email <input type="radio" name="tp_contact" checked="" value="2"></label>
+                                        <input type="submit" name="sendmessage" class="multiple-send-message" value="Enviar mensagem" />
                                     </form>
                                 </div>
                             </div>
@@ -526,40 +532,45 @@ $detail = GenimoFrontEnd::getDetail($id);
         <script src="js/slider.js"></script>
 
         <script>
-            $(document).ready(function() {
-                initPos(<?php echo $detail->property->vlLatitude . ',' . $detail->property->vlLongitude; ?>);
-                /*
-                 * Replace all SVG images with inline SVG
-                 */
-                $('.svgImages').each(function() {
-                    var $img = jQuery(this);
-                    var imgID = $img.attr('id');
-                    var imgClass = $img.attr('class');
-                    var imgURL = $img.attr('src');
+                                            $(document).ready(function() {
 
-                    jQuery.get(imgURL, function(data) {
-                        // Get the SVG tag, ignore the rest
-                        var $svg = jQuery(data).find('svg');
+                                                initPos(<?php echo $detail->property->vlLatitude . ',' . $detail->property->vlLongitude; ?>);
+                                                /*
+                                                 * Replace all SVG images with inline SVG
+                                                 */
+                                                $('.svgImages').each(function() {
+                                                    var $img = jQuery(this);
+                                                    var imgID = $img.attr('id');
+                                                    var imgClass = $img.attr('class');
+                                                    var imgURL = $img.attr('src');
 
-                        // Add replaced image's ID to the new SVG
-                        if (typeof imgID !== 'undefined') {
-                            $svg = $svg.attr('id', imgID);
-                        }
-                        // Add replaced image's classes to the new SVG
-                        if (typeof imgClass !== 'undefined') {
-                            $svg = $svg.attr('class', imgClass + ' replaced-svg');
-                        }
+                                                    jQuery.get(imgURL, function(data) {
+                                                        // Get the SVG tag, ignore the rest
+                                                        var $svg = jQuery(data).find('svg');
 
-                        // Remove any invalid XML tags as per http://validator.w3.org
-                        $svg = $svg.removeAttr('xmlns:a');
+                                                        // Add replaced image's ID to the new SVG
+                                                        if (typeof imgID !== 'undefined') {
+                                                            $svg = $svg.attr('id', imgID);
+                                                        }
+                                                        // Add replaced image's classes to the new SVG
+                                                        if (typeof imgClass !== 'undefined') {
+                                                            $svg = $svg.attr('class', imgClass + ' replaced-svg');
+                                                        }
 
-                        // Replace image with new SVG
-                        $img.replaceWith($svg);
+                                                        // Remove any invalid XML tags as per http://validator.w3.org
+                                                        $svg = $svg.removeAttr('xmlns:a');
 
-                    }, 'xml');
+                                                        // Replace image with new SVG
+                                                        $img.replaceWith($svg);
 
-                });
-            });
+                                                    }, 'xml');
+
+                                                });
+                                            });
+
+                                            var myBookies = <?php echo json_encode($detail->property->bookies); ?>
+
+                                            viewController.showBookies(myBookies);
 
         </script>
     </body>

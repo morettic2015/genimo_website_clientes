@@ -52,7 +52,7 @@
                             <span class="icon-bar"></span>
                         </button>
                         <a class="navbar-brand" href="index.html">
-                            <img src="<?php echo GenimoFrontEnd::getLogo($detail->company->idCompany) . '.png'; ?>" alt="logo" style="max-height: 80px;margin-bottom: 10px">
+                            <img src="<?php echo GenimoFrontEnd::getLogo($detail->company->idCompany) . $detail->company->dsExtensionLogo; ?>" alt="logo" style="max-height: 80px;margin-bottom: 10px">
                         </a>
                     </div>
 
