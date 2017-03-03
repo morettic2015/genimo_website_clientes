@@ -20,6 +20,59 @@ var GenimoFrontEnd = function() {
      *  @Show Fones with interval
      * */
 
+    this.showFull = function() {
+        for (i = 0; i < objectOne.lPoints.length; i++) {
+
+            var iconC = "images/map_marker.png";
+            if (objectOne.lPoints[i].tp == "SAUDE") {
+                iconC = "https://www.citywatch.com.br/v1/assets/images/saude.png";
+            } else if (objectOne.lPoints[i].tp == "EDUCACAO") {
+                iconC = "https://www.citywatch.com.br/v1/assets/images/educacao.png";
+            } else if (objectOne.lPoints[i].tp == "TRANSPORTE") {
+                iconC = "https://www.citywatch.com.br/v1/assets/images/transporte.png";
+            } else if (objectOne.lPoints[i].tp == "SEGURANCA") {
+                iconC = "https://www.citywatch.com.br/v1/assets/images/seguranca.png";
+            } else if (objectOne.lPoints[i].tp == "ALIMENTACAO") {
+                iconC = "https://www.citywatch.com.br/v1/assets/images/alimentacao.png";
+            }
+
+
+            objectOne.lPoints[i].marker = new google.maps.Marker({
+                position: new google.maps.LatLng(objectOne.lPoints[i].lat, objectOne.lPoints[i].lon),
+                icon: iconC,
+                title: objectOne.lPoints[i].title
+            });
+            objectOne.lPoints[i].marker.setMap(map);
+        }
+    }
+    this.addPointInfo = function(title, lat, lon, bairro, preco, id, pic) {
+        if (objectOne.lPoints == undefined) {
+            objectOne.lPoints = [];
+        }
+        var localPoint = new Object();
+        localPoint.title = title;
+        localPoint.lat = lat;
+        localPoint.lon = lon;
+        localPoint.bairro = bairro;
+        localPoint.pic = pic;
+        localPoint.preco = preco;
+        localPoint.id = id;
+
+        objectOne.lPoints.push(localPoint);
+    }
+    this.addPoint = function(title, lat, lon, tp, desc) {
+        if (objectOne.lPoints == undefined) {
+            objectOne.lPoints = [];
+        }
+        var localPoint = new Object();
+        localPoint.title = title;
+        localPoint.lat = lat;
+        localPoint.lon = lon;
+        localPoint.tp = tp;
+        localPoint.desc = desc;
+
+        objectOne.lPoints.push(localPoint);
+    };
     this.showBookies = function(Vbookes) {
         objectOne.bookies = Vbookes;
         objectOne.divAvatar = document.getElementById('logoAvatar');

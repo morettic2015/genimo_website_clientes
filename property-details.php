@@ -56,81 +56,108 @@ $detail = GenimoFrontEnd::getDetail($id);
                                         <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 information-value"><?php echo $detail->property->cdInternal; ?></div>
 
                                         <?php
+                                        $hasAmenity = NULL;
                                         if ($detail->property->vlSale > 0) {
                                             echo '<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 inofrmaition-label">Preço venda</div>';
                                             echo '<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 information-value">' . $detail->property->vlSale . '</div>';
+                                            $hasAmenity = "true";
                                         }
                                         if ($detail->property->vlRental > 0) {
                                             echo '<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 inofrmaition-label">Aluguel anual</div>';
                                             echo '<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 information-value">' . $detail->property->vlRental . '</div>';
+                                            $hasAmenity = "true";
                                         }
                                         if ($detail->property->vlSeasonRent > 0) {
                                             echo '<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 inofrmaition-label">Aluguel diária</div>';
                                             echo '<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 information-value">' . $detail->property->vlSeasonRent . '</div>';
+                                            $hasAmenity = "true";
                                         }
                                         if ($detail->property->vlLowSeasonRent > 0) {
                                             echo '<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 inofrmaition-label">Aluguel estudante</div>';
                                             echo '<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 information-value">' . $detail->property->vlLowSeasonRent . '</div>';
+                                            $hasAmenity = "true";
                                         }
                                         if (!empty($detail->property->amRooms) && $detail->property->amRooms > 0) {
                                             echo '<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 inofrmaition-label">Quartos</div>';
                                             echo '<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 information-value">' . $detail->property->amRooms . '</div>';
+                                            $hasAmenity = "true";
                                         }
                                         if (!empty($detail->property->amSuite) && $detail->property->amSuite > 0) {
                                             echo '<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 inofrmaition-label">Suite</div>';
                                             echo '<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 information-value">' . $detail->property->amSuite . '</div>';
+                                            $hasAmenity = "true";
                                         }
                                         if (!empty($detail->property->amBathroom)) {
                                             echo '<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 inofrmaition-label">Banheiros</div>';
                                             echo '<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 information-value">' . $detail->property->amBathroom . '</div>';
+                                            $hasAmenity = "true";
                                         }
                                         if (!empty($detail->property->amGarage)) {
                                             echo '<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 inofrmaition-label">Garagem</div>';
                                             echo '<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 information-value">' . $detail->property->amGarage . '</div>';
+                                            $hasAmenity = "true";
                                         }
                                         if (!empty($detail->property->dsGarage)) {
                                             echo '<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 inofrmaition-label">Local garagem</div>';
                                             echo '<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 information-value">' . $detail->property->dsGarage . '</div>';
+                                            $hasAmenity = "true";
                                         }
                                         if (!empty($detail->property->qtYearBuilt)) {
                                             echo '<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 inofrmaition-label">Ano de construção</div>';
                                             echo '<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 information-value">' . $detail->property->qtYearBuilt . '</div>';
+                                            $hasAmenity = "true";
                                         }
                                         if (!empty($detail->property->vlCondominiunTax)) {
                                             echo '<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 inofrmaition-label">Condomínio</div>';
                                             echo '<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 information-value">' . $detail->property->vlCondominiunTax . '</div>';
+                                            $hasAmenity = "true";
                                         }
                                         if ($detail->property->flAcceptFunding == 1) {
                                             echo '<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 inofrmaition-label">Financiamento</div>';
                                             echo '<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 information-value">Sim</div>';
+                                            $hasAmenity = "true";
                                         }
                                         if (!(empty($detail->property->tpDevelopmentLevel))) {
                                             $estagio = $detail->property->tpDevelopmentLevel == "1" ? "Lançamento" : $detail->property->tpDevelopmentLevel == "2" ? "Em construção" : "Pronto para morar";
                                             echo '<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 inofrmaition-label">Estágio da obra</div>';
                                             echo '<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 information-value">' . $estagio . '</div>';
+                                            $hasAmenity = "true";
                                         }
                                         if (!empty($detail->property->flInhabited)) {
                                             $habitado = ($detail->property->flInhabited == 1) ? 'Sim' : 'Não';
                                             echo '<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 inofrmaition-label">Habitado</div>';
                                             echo '<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 information-value">' . $habitado . '</div>';
+                                            $hasAmenity = "true";
                                         }
                                         if (!empty($detail->property->qtApartmentsFloor)) {
                                             echo '<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 inofrmaition-label">Apartamentos por andar</div>';
                                             echo '<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 information-value">' . $detail->property->qtApartmentsFloor . '</div>';
+                                            $hasAmenity = "true";
                                         }
                                         if (!empty($detail->property->tpFinality)) {
                                             $finalidade = ($detail->property->tpFinality == 1) ? 'Comercial' : 'Residencial';
                                             echo '<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 inofrmaition-label">Finalidade</div>';
                                             echo '<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 information-value">' . $finalidade . '</div>';
+                                            $hasAmenity = "true";
                                         }
                                         if (!empty($detail->property->qtMaxHousing) && $detail->property->qtMaxHousing > 0) {
                                             echo '<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 inofrmaition-label">Hospedagem máxima</div>';
                                             echo '<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 information-value">' . $detail->property->qtMaxHousing . '</div>';
+                                            $hasAmenity = "true";
                                         }
                                         if ($detail->property->flHighStandart == 1) {
                                             echo '<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 inofrmaition-label">Alto Padrão</div>';
                                             echo '<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 information-value">Sim</div>';
+                                            $hasAmenity = "true";
                                         }
+
+                                        //  echo $hasAmenity;
+                                        //die();
+
+                                        /*  if ($hasAmenity != NULL) {
+                                          echo '<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 inofrmaition-label">Info</div>';
+                                          echo '<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 information-value">Não disponível</div>';
+                                          } */
                                         ?>
 
                                     </div>
@@ -353,7 +380,10 @@ $detail = GenimoFrontEnd::getDetail($id);
                                     <h4>Perto do imóvel </h4>
                                     <div class="row">
                                         <div id="googleMapNearestPlaces" style="width:100%;height:350px;"> </div>
-                                        <small style="text-align: right;font-size: 11px"><a target="_BLANK" href="http://citywatch.com.br">by Citywatch</a></small>
+                                        <small style="text-align: right;font-size: 11px"><a target="_BLANK" href="http://citywatch.com.br">by
+                                                <img src="https://www.citywatch.com.br/v1/assets/images/logo.png" height="30"/>
+                                            </a>
+                                        </small>
                                         <!--
                                         <div class="col-md-6 col-sm-12 col-xs-12" id="near-by-place-detail"> </div>
                                         <div class="col-md-6 col-sm-12 col-xs-12 near-location-map">
@@ -421,78 +451,84 @@ $detail = GenimoFrontEnd::getDetail($id);
                                     <h4>Video</h4>
                                     <iframe lass="img-responsive" width="100%" height="226" src="<?php echo $detail->property->videos[0]->dsEmbedSource; ?>" frameborder="0" allowfullscreen></iframe>
                                 </div>
-                            <?php } ?>
+                                <?php
+                            }
 
-                            <div class="recent-proeprties-sidebar">
-                                <h4>Imóveis Similares</h4>
+                            $vet = $detail->property->similar;
+                            if (sizeof($vet) > 0) {
+                                ?>
 
-                                <div id="myCarousel" class="carousel slide" data-ride="carousel" data-interval="false">
-                                    <div class="carousel-inner" role="listbox">
-                                        <?php
-                                        $vet = $detail->property->similar;
-                                        $active = 'active';
-                                        $ctr = 0;
-                                        $tot = 3;
-                                        foreach ($vet as $obj) {
-                                            if ($ctr < 1) {
-                                                echo '<div class="multiple-recent-properties item ' . $active . '">';
-                                            }
-                                            $preco = null;
-                                            $modalidade = null;
+                                <div class="recent-proeprties-sidebar">
+                                    <h4>Imóveis Similares</h4>
+
+                                    <div id="myCarousel" class="carousel slide" data-ride="carousel" data-interval="false">
+                                        <div class="carousel-inner" role="listbox">
+                                            <?php
+                                            // $vet = $detail->property->similar;
+                                            $active = 'active';
+                                            $ctr = 0;
+                                            $tot = 3;
+                                            foreach ($vet as $obj) {
+                                                if ($ctr < 1) {
+                                                    echo '<div class="multiple-recent-properties item ' . $active . '">';
+                                                }
+                                                $preco = null;
+                                                $modalidade = null;
 
 
-                                            if ($obj->cdMode == 1) {
-                                                $preco = $obj->vlRental > 0 ? $obj->vlRental : "Consulte";
-                                                $modalidade = "Aluguel";
-                                            } else if ($obj->cdMode == 2) {
-                                                $preco = $obj->vlSale > 0 ? $obj->vlSale : "Consulte";
-                                                $modalidade = "Venda";
-                                            } else if ($obj->cdMode == 3) {
-                                                $preco = $obj->vlSale > 0 ? $obj->vlSale : "Consulte";
-                                                $modalidade = "Aluguel & Venda";
-                                            } else if ($obj->cdMode == 4) {
-                                                $preco = $obj->vlSeasonRent > 0 ? $obj->vlSeasonRent : "Consulte";
-                                                $modalidade = "Aluguel temporada";
-                                            } else if ($obj->cdMode == 5) {
-                                                $preco = $obj->vlLowSeasonRent > 0 ? $obj->vlLowSeasonRent : "Consulte";
-                                                $modalidade = "Aluguel estudante";
-                                            } else {
-                                                $preco = 'Consulte';
+                                                if ($obj->cdMode == 1) {
+                                                    $preco = $obj->vlRental > 0 ? $obj->vlRental : "Consulte";
+                                                    $modalidade = "Aluguel";
+                                                } else if ($obj->cdMode == 2) {
+                                                    $preco = $obj->vlSale > 0 ? $obj->vlSale : "Consulte";
+                                                    $modalidade = "Venda";
+                                                } else if ($obj->cdMode == 3) {
+                                                    $preco = $obj->vlSale > 0 ? $obj->vlSale : "Consulte";
+                                                    $modalidade = "Aluguel & Venda";
+                                                } else if ($obj->cdMode == 4) {
+                                                    $preco = $obj->vlSeasonRent > 0 ? $obj->vlSeasonRent : "Consulte";
+                                                    $modalidade = "Aluguel temporada";
+                                                } else if ($obj->cdMode == 5) {
+                                                    $preco = $obj->vlLowSeasonRent > 0 ? $obj->vlLowSeasonRent : "Consulte";
+                                                    $modalidade = "Aluguel estudante";
+                                                } else {
+                                                    $preco = 'Consulte';
+                                                }
+                                                ?>
+
+                                                <div class="image-with-label">
+                                                    <img class="img-responsive" alt="recent-properties-1" src="https://genimo.com.br/media/<?php echo $obj->idProperty . '/' . $obj->nmFileNameSpotlight; ?>">
+                                                    <label><?php echo $modalidade; ?></label>
+                                                </div>
+                                                <a href="property-details.php?id=<?php echo $obj->idProperty; ?>"><h6><?php echo $obj->nmPropertySite; ?></h6></a>
+                                                <span class="recent-properties-address"><?php echo $obj->nmCity . ',' . $obj->nmNeighborhood; ?></span>
+                                                <p class="recent-properties-price"><?php echo $preco; ?></p>
+
+
+                                                <?php
+                                                if ($ctr >= 1) {
+                                                    echo '</div>';
+                                                    $ctr = 0;
+                                                } else {
+                                                    $ctr++;
+                                                }
+                                                $active = '';
+                                                $tot--;
                                             }
                                             ?>
+                                        </div>
 
-                                            <div class="image-with-label">
-                                                <img class="img-responsive" alt="recent-properties-1" src="https://genimo.com.br/media/<?php echo $obj->idProperty . '/' . $obj->nmFileNameSpotlight; ?>">
-                                                <label><?php echo $modalidade; ?></label>
-                                            </div>
-                                            <a href="property-details.php?id=<?php echo $obj->idProperty; ?>"><h6><?php echo $obj->nmPropertySite; ?></h6></a>
-                                            <span class="recent-properties-address"><?php echo $obj->nmCity . ',' . $obj->nmNeighborhood; ?></span>
-                                            <p class="recent-properties-price"><?php echo $preco; ?></p>
-
-
-                                            <?php
-                                            if ($ctr >= 1) {
-                                                echo '</div>';
-                                                $ctr = 0;
-                                            } else {
-                                                $ctr++;
-                                            }
-                                            $active = '';
-                                            $tot--;
-                                        }
-                                        ?>
-                                    </div>
-
-                                    <div class="left-right-arrow">
-                                        <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
-                                            <img class="pull-left" alt="arrow left" src="images/left-arrow.png">
-                                        </a>
-                                        <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
-                                            <img class="pull-right" alt="arrow right" src="images/right-arrow.png">
-                                        </a>
+                                        <div class="left-right-arrow">
+                                            <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
+                                                <img class="pull-left" alt="arrow left" src="images/left-arrow.png">
+                                            </a>
+                                            <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
+                                                <img class="pull-right" alt="arrow right" src="images/right-arrow.png">
+                                            </a>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
+                            <?php } ?>
                         </div>
                     </div>
                 </div>
@@ -521,6 +557,8 @@ $detail = GenimoFrontEnd::getDetail($id);
             <div class="footer">
                 <span class="footer_copyright_text">Powered by <a href="http://morettic.com.br"><b>Morettic</b></a> & <a href="http://morettic.com.br"><b>Pratique Conhecimento</b></a></span>
             </div>
+
+            <?php ?>
         </footer>
         <script src="js/jquery-2.1.4.min.js"></script>
         <script src="js/bootstrap.min.js"></script>
@@ -529,15 +567,35 @@ $detail = GenimoFrontEnd::getDetail($id);
         <script src="js/google-map.js"></script>
         <script src="js/custom.js"></script>
         <!-- <script src="js/neary-by-place.js"></script>-->
+
+
         <script src="js/slider.js"></script>
 
         <script>
+
+
+
+
                                             $(document).ready(function() {
 
                                                 initPos(<?php echo $detail->property->vlLatitude . ',' . $detail->property->vlLongitude; ?>);
-                                                /*
-                                                 * Replace all SVG images with inline SVG
-                                                 */
+
+<?php
+//Load Citywatch Data from webservices
+$citywatch = GenimoFrontEnd::getMarkersCityWatch($detail->property->vlLatitude, $detail->property->vlLongitude, $detail->property->nmCity);
+$vet = $citywatch->openStreet;
+foreach ($vet as $obj) {
+    echo 'viewController.addPoint("' . $obj->tit . '", "' . $obj->lat . '", "' . $obj->lon . '", "' . $obj->tipo . '", "' . $obj->desc . '");';
+    echo "\n";
+}
+?>
+
+
+                                                var myBookies = <?php echo json_encode($detail->property->bookies); ?>
+
+                                                viewController.showBookies(myBookies);
+
+
                                                 $('.svgImages').each(function() {
                                                     var $img = jQuery(this);
                                                     var imgID = $img.attr('id');
@@ -566,11 +624,10 @@ $detail = GenimoFrontEnd::getDetail($id);
                                                     }, 'xml');
 
                                                 });
+                                                viewController.showFull();
                                             });
 
-                                            var myBookies = <?php echo json_encode($detail->property->bookies); ?>
 
-                                            viewController.showBookies(myBookies);
 
         </script>
     </body>
