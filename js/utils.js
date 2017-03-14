@@ -8,6 +8,7 @@ var objectOne = {};
 var bookies = [];
 var element;
 var branchs = [];
+var infoWindows = [];
 var pos = 0;
 var pos1 = 0;
 var tpFone = 'A';
@@ -19,10 +20,17 @@ var GenimoFrontEnd = function() {
     /**
      *  @Show Fones with interval
      * */
+    this.showFilter = function() {
+        $("#divFilterDetail").dialog("open");
+    }
 
     this.showFull = function() {
         for (i = 0; i < objectOne.lPoints.length; i++) {
-
+            objectOne.lPoints[i].marker = new google.maps.Marker({
+                position: new google.maps.LatLng(objectOne.lPoints[i].lat, objectOne.lPoints[i].lon),
+                icon: iconC,
+                title: objectOne.lPoints[i].title
+            });
             var iconC = "images/map_marker.png";
             if (objectOne.lPoints[i].tp == "SAUDE") {
                 iconC = "https://www.citywatch.com.br/v1/assets/images/saude.png";
@@ -34,14 +42,22 @@ var GenimoFrontEnd = function() {
                 iconC = "https://www.citywatch.com.br/v1/assets/images/seguranca.png";
             } else if (objectOne.lPoints[i].tp == "ALIMENTACAO") {
                 iconC = "https://www.citywatch.com.br/v1/assets/images/alimentacao.png";
+            } else if (objectOne.lPoints[i].tp == "IMOVEIS") {
+                iconC = "images/map_marker.png";
+
+                objectOne.lPoints[i].infoWindow = new google.maps.InfoWindow({
+                    content: objectOne.lPoints[i].contentString
+                });
+                objectOne.lPoints[i].marker.addListener('click', function() {
+                    contentString = '<div id="content"><h1>' + this.title + '</h1><br><img style="border-radius: 15%;width:120px" src=' + this.pic + '/>' + 'Preço' + this.preco + '<br><a href=property-details.php?id=' + this.id + '>Ver mais</a></div>';
+                    document.getElementById('divImovelDetail').innerHTML = contentString;
+                    $("#divImovelDetail").dialog("open");
+                    //objectOne.lPoints[i].infoWindow.open(map, objectOne.lPoints[i].marker);
+                });
+                objectOne.lPoints[i].infowindow = infoWindows[i];
             }
 
 
-            objectOne.lPoints[i].marker = new google.maps.Marker({
-                position: new google.maps.LatLng(objectOne.lPoints[i].lat, objectOne.lPoints[i].lon),
-                icon: iconC,
-                title: objectOne.lPoints[i].title
-            });
             objectOne.lPoints[i].marker.setMap(map);
         }
     }
@@ -57,6 +73,7 @@ var GenimoFrontEnd = function() {
         localPoint.pic = pic;
         localPoint.preco = preco;
         localPoint.id = id;
+        localPoint.tp = "IMOVEIS";
 
         objectOne.lPoints.push(localPoint);
     }
