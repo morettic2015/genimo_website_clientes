@@ -88,12 +88,11 @@ $detail = GenimoFrontEnd::getCompany();
 
                             <!-- Collect the nav links, forms, and other content for toggling -->
                             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+
                                 <ul class="nav navbar-nav nav_link pull-right">
+                                    <li><a href="javascript:viewController.showFilter()" class="drop_down">Alugue seu imóvel</a>
+                                    </li>
                                     <li><a href="javascript:viewController.showFilter()" class="drop_down">Encontre seu imóvel</a>
-                                        <!-- <ul class="submenu">
-                                             <li><a href="index.html">Inicio</a> </li>
-                                             <li><a href="homepage-variation-1.html">homepage variation 1</a> </li>
-                                         </ul> -->
                                     </li>
                                     <?php
                                     /* $vet = $detail->modes;
@@ -101,51 +100,6 @@ $detail = GenimoFrontEnd::getCompany();
                                       echo '<li><a href = "property-listing-list.php?mode=' . $obj->id . '">' . $obj->ds . '</a></li>';
                                       } */
                                     ?>
-                                    <!--
-                                      <li><a href="#" class="drop_down">PROPERTIES</a>
-                                          <ul class="submenu">
-                                              <li><a href="property-listing-list.html">List View</a> </li>
-                                              <li><a href="property-listing-grid.html">Grid View</a> </li>
-                                              <li><a href="property-listing-map.html">Map View</a> </li>
-                                              <li><a href="property-details.html">Property Detail</a> </li>
-                                          </ul>
-                                      </li>
-                                      <li><a href="#" class="drop_down">GALLERY </a>
-                                          <ul class="submenu">
-                                              <li><a href="gallery_2_columns.html">Gallery 2 Columns</a> </li>
-                                              <li><a href="gallery_3_columns.html">Gallery 3 Columns</a> </li>
-                                          </ul>
-                                      </li> -->
-                                    <!--   <li><a href="#" class="drop_down">PESQUISAR </a>
-                                           <ul class="submenu">
-                                               <li>
-                                                   <label>Tipo do negócio
-                                                       <select>
-                                                           <option>Venda</option>
-                                                           <option>Aluguel</option>
-                                                       </select>
-                                                   </label>
-                                               </li>
-                                               <li>
-                                                   <label>Categoria<br>
-                                                       <select>
-                                                           <option>Venda</option>
-                                                           <option>Aluguel</option>
-                                                       </select>
-                                                   </label>
-                                               </li>
-                                               <li>
-                                                   <label>Cidade<br>
-                                                       <select>
-                                                           <option>Venda</option>
-                                                           <option>Aluguel</option>
-                                                       </select>
-                                                   </label>
-                                               </li>
-
-                                               <li><<input type="button" value="Pesquuiar"/></li>
-                                           </ul>
-                                       </li>-->
 
                                 </ul>
                             </div><!-- /.navbar-collapse -->
@@ -172,6 +126,15 @@ $detail = GenimoFrontEnd::getCompany();
                         </script>
                     </div>
                 </div>
+                <ul class="property-listing-type-button" style="position: absolute; left: 10px; z-index: 99; float: left">
+                    <li>
+                        <a href="javascript:viewController.showMap()"><i class="fa fa-map-marker"> </i></a>
+                    </li>
+
+                    <li>
+                        <a href="javascript:viewController.showGrid1()"><i class="fa fa-bars"> </i></a>
+                    </li>
+                </ul>
             </div>
 
         </header>
@@ -252,14 +215,102 @@ $detail = GenimoFrontEnd::getCompany();
 
         </section>
         <section>
+
+            <div id="grid_canvas" style="display: none"class="property-listing multiple-recent-properties">
+                <div class="container">
+
+                    <div class="row property-list-area">
+                        <div data-target="Residential" class="active carousel slide carousel-slide-recent-property">
+                            <?php
+                            $points = $detail->properties;
+                            $cityName = "";
+                            foreach ($points as $pt) {
+                                $cityName = $pt->nmCity;
+                                if (empty($pt->vlLatitude)) {
+                                    continue;
+                                }
+                                $url = "https://genimo.com.br/media/" . $pt->idProperty . '/' . $pt->nmFileNameSpotlight;
+                                if (empty($pt->idProperty) || empty($pt->nmFileNameSpotlight)) {
+                                    $url = "https://www.citywatch.com.br/v1/assets/images/logo.png";
+                                }
+
+                                $preco = (!empty($pt->vlSale)) ? "<br>VENDA:" . $pt->vlSale . '<br>' : "";
+                                $preco.= (!empty($pt->vlRental)) ? "<br>ALUGUEL:" . $pt->vlRental . '<br>' : "";
+                                $preco.= (!empty($pt->vlSeasonRent)) ? "<br>TEMPORADA:" . $pt->vlSeasonRent . '<br>' : "";
+                                $preco.= (!empty($pt->vlLowSeasonRent)) ? "<br>BAIXA TEMPORADA:" . $pt->vlLowSeasonRent : "";
+                                $preco = str_replace("VENDA:0.00<br>", "", $preco);
+                                $preco = str_replace("ALUGUEL:0.00<br>", "", $preco);
+                                $preco = str_replace("TEMPORADA:0.00<br>", "", $preco);
+                                $preco = str_replace("BAIXA TEMPORADA:0.00", "", $preco);
+                                //echo "viewController.addPointInfo('" . $pt->nmCategory . "', " . $pt->vlLatitude . ", " . $pt->vlLongitude . ", '" . $pt->nmNeighborhood . "', '" . $preco . "', " . $pt->idProperty . ", '" . $url . "');\n";
+                                ?>
+                                <div class="col-sm-6 col-md-4 col-lg-4">
+                                    <div class="image-with-label">
+                                        <a  href="property-details.php?id=<?php echo $pt->idProperty; ?>" target="_BLANK">
+                                            <img src="<?php echo $url; ?>" alt="recent-properties-1" class="img-responsive" style="max-height: 270px">
+                                        </a>
+                                        <label><?php echo $pt->nmCategory; ?></label>
+                                    </div>
+                                    <a href="#"><h6><?php echo $pt->dsAddress; ?></h6></a>
+                                    <span class="recent-properties-address"><?php echo $pt->nmCity; ?> / <?php echo $pt->nmNeighborhood; ?></span>
+                                    <p class="recent-properties-price">
+                                        <?php echo $preco ?>
+                                    </p>
+
+                                </div>
+
+                            <?php } ?>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <div id="map_canvas"></div>
         </section>
 
-        <script src="js/jquery-2.1.4.min.js"></script>
-        <script src="js/bootstrap.min.js"></script>
-        <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-        <script>
+
+        <section>
+
+            <div id="grid_corretores" class="property-listing multiple-recent-properties">
+                <div class="container">
+
+                    <div class="row property-list-area">
+                        <div data-target="Residential" class="active carousel slide carousel-slide-recent-property">
+                            <center>
+                                <h1>Corretores</h1>
+                            </center>
+                            <?php
+                            $corret = $detail->sellers;
+                            foreach ($corret as $pt) {
+                                ?>
+                                <div class = "col-sm-6 col-md-4 col-lg-4">
+                                    <div class = "image-with-label">
+
+                                        <img src ="<?php echo $pt->dsAvatarPath; ?>" alt = "recent-properties-1" style="border-radius: 50%;" class = "img-responsive">
+                                        </a>
+                                        <label><?php echo $pt->nmPerson . '<br>' . $pt->nuCellPhone ?></label>
+                                    </div>
+
+
+                                </div>
+
+                            <?php } ?>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <footer>
+                <div class="footer">
+                    <span class="footer_copyright_text"><?php echo $detail->company->dsAddress; ?> <?php echo $detail->company->dsAddress2; ?> <?php echo $detail->company->nmCity; ?><br>Powered by <a href="http://morettic.com.br"><b>Morettic</b></a> & <a href="http://morettic.com.br"><b>Pratique Conhecimento</b></a></span>
+                </div>
+
+                <?php ?>
+            </footer>
+            <script src="js/jquery-2.1.4.min.js"></script>
+            <script src="js/bootstrap.min.js"></script>
+            <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+            <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+            <script>
 <?php
 $count = 0;
 $mediaLat = 0;
@@ -272,10 +323,22 @@ foreach ($points as $pt) {
     if (empty($pt->vlLatitude)) {
         continue;
     }
-    $preco = (!empty($pt->vlSale)) ? $pt->vlSale : (!empty($pt->vlRental)) ? $pt->vlRental : (!empty($pt->vlSeasonRent)) ? $pt->vlSeasonRent : (!empty($pt->vlLowSeasonRent)) ? $pt->vlLowSeasonRent : "SOB CONSULTA";
+    $url = "https://genimo.com.br/media/" . $pt->idProperty . '/' . $pt->nmFileNameSpotlight;
+    if (empty($pt->idProperty) || empty($pt->nmFileNameSpotlight)) {
+        $url = "https://www.citywatch.com.br/v1/assets/images/logo.png";
+    }
 
+    $preco = (!empty($pt->vlSale)) ? "<br>VENDA:" . $pt->vlSale . '<br>' : "";
+    $preco.= (!empty($pt->vlRental)) ? "<br>ALUGUEL:" . $pt->vlRental . '<br>' : "";
+    $preco.= (!empty($pt->vlSeasonRent)) ? "<br>TEMPORADA:" . $pt->vlSeasonRent . '<br>' : "";
+    $preco.= (!empty($pt->vlLowSeasonRent)) ? "<br>BAIXA TEMPORADA:" . $pt->vlLowSeasonRent : "";
+    $preco = str_replace("VENDA:0.00<br>", "", $preco);
+    $preco = str_replace("ALUGUEL:0.00<br>", "", $preco);
+    $preco = str_replace("TEMPORADA:0.00<br>", "", $preco);
+    $preco = str_replace("BAIXA TEMPORADA:0.00", "", $preco);
 
-    echo "viewController.addPointInfo('" . $pt->nmCategory . "', " . $pt->vlLatitude . ", " . $pt->vlLongitude . ", '" . $pt->nmNeighborhood . "', '" . $preco . "', " . $pt->idProperty . ", '" . "https://genimo.com.br/media/" . $pt->idProperty . '/' . $pt->nmFileNameSpotlight . "');\n";
+    //echo "<!-- $url -->";
+    echo "viewController.addPointInfo('" . $pt->nmCategory . "', " . $pt->vlLatitude . ", " . $pt->vlLongitude . ", '" . $pt->nmNeighborhood . "', '" . $preco . "', " . $pt->idProperty . ", '" . $url . "');\n";
     $count++;
     $mediaLat+=$pt->vlLatitude;
     $mediaLon+=$pt->vlLongitude;
@@ -407,7 +470,7 @@ foreach ($vet as $obj) {
                                     max: 5000000,
                                     values: [75000, 3000000],
                                     slide: function(event, ui) {
-                                        $("#amount").val("R$" + ui.values[ 0 ] + " - R$" + ui.values[ 1 ]);
+                                        $("#amount").val("R$" + ui.values[0] + " - R$" + ui.values[1]);
                                     }
                                 });
                                 $("#amount").val("$" + $("#slider-range").slider("values", 0) +
@@ -419,14 +482,17 @@ foreach ($vet as $obj) {
                                     max: 1000,
                                     values: [50, 200],
                                     slide: function(event, ui) {
-                                        $("#amount1").val(ui.values[ 0 ] + '-' + ui.values[ 1 ]);
+                                        $("#amount1").val(ui.values[0] + '-' + ui.values[1]);
                                     }
                                 });
                                 $("#amount1").val("$" + $("#slider-range1").slider("values", 0) +
                                         " - $" + $("#slider-range1").slider("values", 1));
+                                viewController.showFilter();
+                                //viewController.showGrid1();
                             });
 
-        </script>
+
+            </script>
 
     </body>
 </html>

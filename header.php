@@ -51,7 +51,7 @@
                             <span class="icon-bar"></span>
                             <span class="icon-bar"></span>
                         </button>
-                        <a class="navbar-brand" href="index.html">
+                        <a class="navbar-brand" href="./">
                             <img src="<?php echo GenimoFrontEnd::getLogo($detail->company->idCompany) . $detail->company->dsExtensionLogo; ?>" alt="logo" style="max-height: 80px;margin-bottom: 10px">
                         </a>
                     </div>
@@ -59,17 +59,17 @@
                     <!-- Collect the nav links, forms, and other content for toggling -->
                     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                         <ul class="nav navbar-nav nav_link pull-right">
-                            <li><a href="./" class="drop_down">INICIO</a>
-                                <!-- <ul class="submenu">
-                                     <li><a href="index.html">Inicio</a> </li>
-                                     <li><a href="homepage-variation-1.html">homepage variation 1</a> </li>
-                                 </ul> -->
-                            </li>
+                            <!--  <li><a href="./" class="drop_down">INICIO</a>
+                                 <ul class="submenu">
+                                      <li><a href="index.html">Inicio</a> </li>
+                                      <li><a href="homepage-variation-1.html">homepage variation 1</a> </li>
+                                  </ul>
+                             </li>-->
                             <?php
-                            $vet = $detail->modes;
-                            foreach ($vet as $obj) {
-                                echo '<li><a href = "property-listing-list.php?mode=' . $obj->id . '">' . $obj->ds . '</a></li>';
-                            }
+                            /*  $vet = $detail->modes;
+                              foreach ($vet as $obj) {
+                              echo '<li><a href = "property-listing-list.php?mode=' . $obj->id . '">' . $obj->ds . '</a></li>';
+                              } */
                             ?>
                             <!--
                               <li><a href="#" class="drop_down">PROPERTIES</a>
@@ -115,8 +115,8 @@
 
                                        <li><<input type="button" value="Pesquuiar"/></li>
                                    </ul>
-                               </li>-->
-                            <li><a href="contact.html">CONTATOS </a> </li>
+                               </li>
+                            <li><a href="contact.html">CONTATOS </a> </li>-->
                         </ul>
                     </div><!-- /.navbar-collapse -->
 

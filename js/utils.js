@@ -49,12 +49,13 @@ var GenimoFrontEnd = function() {
                     content: objectOne.lPoints[i].contentString
                 });
                 objectOne.lPoints[i].marker.addListener('click', function() {
-                    contentString = '<div id="content"><h1>' + this.title + '</h1><br><img style="border-radius: 15%;width:120px" src=' + this.pic + '/>' + 'Preço' + this.preco + '<br><a href=property-details.php?id=' + this.id + '>Ver mais</a></div>';
+                    contentString = '<div id="content"><h1>' + objectOne.lPoints[this.idPos].title + '</h1><br><img style="border-radius: 15%;width:120px" src="' + objectOne.lPoints[this.idPos].pic + '"/>' + objectOne.lPoints[this.idPos].preco + '<br><a href=property-details.php?id=' + objectOne.lPoints[this.idPos].id + '>Ver mais</a></div>';
                     document.getElementById('divImovelDetail').innerHTML = contentString;
                     $("#divImovelDetail").dialog("open");
                     //objectOne.lPoints[i].infoWindow.open(map, objectOne.lPoints[i].marker);
                 });
                 objectOne.lPoints[i].infowindow = infoWindows[i];
+                objectOne.lPoints[i].marker.idPos = i;
             }
 
 
@@ -113,7 +114,18 @@ var GenimoFrontEnd = function() {
             pos1++;
         }, 5000);
     };
-
+    this.showMap = function() {
+        document.getElementById('map_canvas').style.display = 'block';
+        document.getElementById('map_canvas').style.visibility = 'visible';
+        document.getElementById('grid_canvas').style.display = 'none';
+        document.getElementById('grid_canvas').style.visibility = 'hidden';
+    }
+    this.showGrid1 = function() {
+        document.getElementById('grid_canvas').style.display = 'block';
+        document.getElementById('grid_canvas').style.visibility = 'visible';
+        document.getElementById('map_canvas').style.display = 'none';
+        document.getElementById('map_canvas').style.visibility = 'hidden';
+    }
     this.showFones = function(v, pbranch, d1, d2) {
         branchs = pbranch;
         this.divTit = document.getElementById(d1);

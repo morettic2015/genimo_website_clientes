@@ -11,7 +11,7 @@ and open the template in the editor.
 #map_canvas {
     margin: 0;
     padding: 0;
-    height:100vh;
+    height:80vh;
     width:100%
 }
 #map-canvas {
