@@ -5,7 +5,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-        const ID_COMPANY = '41';
+        const ID_COMPANY = '67';
         const URL_FIND_BY_ID = "https://genimo.com.br/api/site/property/";
         const URL_LOGO_IMOBILIARIA = "https://genimo.com.br/logos/";
         const URL_COMPANY = "https://genimo.com.br/api/site/company/";
@@ -13,8 +13,14 @@
 class GenimoFrontEnd {
 
     public static final function getCompany() {
-        $url = URL_COMPANY . ID_COMPANY;
-        $jsonRet = file_get_contents($url);
+        if (isset($_SESSION["DATA"])) {
+            $jsonRet = $_SESSION["DATA"];
+        } else {
+            $url = URL_COMPANY . ID_COMPANY;
+            $jsonRet = file_get_contents($url);
+            $_SESSION["DATA"] = $jsonRet;
+        }
+
         return json_decode($jsonRet);
     }
 

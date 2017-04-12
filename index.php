@@ -1,11 +1,13 @@
-<!DOCTYPE html>
 <?php
+session_start();
 include_once './src/GenimoFrontEnd.php';
 //echo '<pre>';
+
 $detail = GenimoFrontEnd::getCompany();
 //var_dump($detail);
 //die();
 ?>
+<!DOCTYPE html>
 <html>
     <head>
 
@@ -66,9 +68,6 @@ $detail = GenimoFrontEnd::getCompany();
                     </div>
                 </div>
             </div>
-
-
-
             <div class="container">
                 <div class="menu">
                     <nav class="navbar navbar-default">
@@ -88,19 +87,11 @@ $detail = GenimoFrontEnd::getCompany();
 
                             <!-- Collect the nav links, forms, and other content for toggling -->
                             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-
                                 <ul class="nav navbar-nav nav_link pull-right">
                                     <li><a href="javascript:viewController.showFilter()" class="drop_down">Alugue seu imóvel</a>
                                     </li>
                                     <li><a href="javascript:viewController.showFilter()" class="drop_down">Encontre seu imóvel</a>
                                     </li>
-                                    <?php
-                                    /* $vet = $detail->modes;
-                                      foreach ($vet as $obj) {
-                                      echo '<li><a href = "property-listing-list.php?mode=' . $obj->id . '">' . $obj->ds . '</a></li>';
-                                      } */
-                                    ?>
-
                                 </ul>
                             </div><!-- /.navbar-collapse -->
 
@@ -118,104 +109,97 @@ $detail = GenimoFrontEnd::getCompany();
                         </div>
                         <script>
                             var mBranch = <?php
-                                    //var_dump($detail->company->branchs);
-                                    //die();
-                                    echo json_encode($detail->company->branchs) . ";";
-                                    ?>
+                                //var_dump($detail->company->branchs);
+                                //die();
+                                echo json_encode($detail->company->branchs) . ";";
+                                ?>
                             viewController.showFones(viewController, mBranch, 'txtDescFone', 'txtNrFone');
                         </script>
                     </div>
                 </div>
-                <ul class="property-listing-type-button" style="position: absolute; left: 10px; z-index: 99; float: left">
-                    <li>
-                        <a href="javascript:viewController.showMap()"><i class="fa fa-map-marker"> </i></a>
-                    </li>
 
-                    <li>
-                        <a href="javascript:viewController.showGrid1()"><i class="fa fa-bars"> </i></a>
-                    </li>
-                </ul>
             </div>
 
         </header>
         <div id="divImovelDetail" title="Detalhes do imóvel" style="display: none;"></div>
-        <div id="divFilterDetail" title="Encontre seu imóvel" style="display: none;">
-
-            <div title="O que você Precisa?" style="width: 95%;margin: 5px">
-                <select name="select" >
-                    <option value="O que você precisa?">O que você precisa?</option>
-                    <option value="COMPRAR">COMPRAR</option>
-                    <option value="ALUGAR">ALUGAR</option>
-                    <option value="LANÇAMENTOS">LANÇAMENTOS</option>
-                </select>
-                </label>
-            </div>
-
-            <div title="Qual o tipo?" style="width: 95%;margin: 5px">
-                <select name="select1"  >
-                    <option value="Qual o tipo?">Qual o tipo?</option>
-                    <option value="CASA">CASA</option>
-                    <option value="APARTAMENTO">APARTAMENTO</option>
-                    <option value="TERRENO">TERRENO</option></select>
-                </label>
-            </div>
-            <p>
-                <label for="amount">Intervalo de preço:</label><br>
-                <input type="text" id="amount" readonly style="border:0; color:#f6931f; font-weight:bold;">
-            </p>
-            <div id="slider-range"></div>
-            <div title="Número de suítes" style="width: 95%;margin: 5px">
-                <label class="title">Número de suítes<br>
-                    <select name="select1" >
-                        <option value="Qual o tipo?">1</option>
-                        <option value="CASA">2</option>
-                        <option value="APARTAMENTO">3</option>
-                        <option value="TERRENO">4 ou mais</option>
+        <div id="divFilterDetail" title="Encontre seu imóvel" style="display: none;margin: 15px">
+            <form class="form-inline" role="form" name="frmFilter">
+                <div class="form-group" style="margin: 15px">
+                    <select id="whatId" name="whatId" class="form-control" onchange="viewController.doSearch()" >
+                        <option value="*">O que você precisa?</option>
+                        <?php
+                        $vet = $detail->modes;
+                        foreach ($vet as $obj) {
+                            echo '<option value="' . $obj->id . '">' . $obj->ds . '</option>"';
+                        }
+                        ?>
                     </select>
-                </label>
-            </div>
-            <div title="Vagas na garagem" style="width: 95%;margin: 5px">
-                <label class="title">Vagas na garagem<br>
-                    <select name="select1" >
-                        <option value="Qual o tipo?">1</option>
-                        <option value="CASA">2</option>
-                        <option value="APARTAMENTO">3</option>
-                        <option value="TERRENO">4 ou mais</option>
+                </div>
+                <div class="form-group" style="margin: 15px">
+
+                    <select id="howId" name="howId" class="form-control" onchange="viewController.doSearch()">
+                        <option value="*">Qual o tipo?</option>
+                        <?php
+                        $vet = $detail->categories;
+                        foreach ($vet as $obj) {
+                            echo '<option value="' . $obj->nmCategory . '">' . $obj->nmCategory . '</option>"';
+                        }
+                        ?>
                     </select>
-                </label>
-            </div>
-            <p style="width: 95%;margin: 5px">
-                <label for="amount1">Área M²:</label>
-                <input type="text" id="amount1" readonly style="border:0; color:#f6931f; font-weight:bold;">
-            </p>
-            <div id="slider-range1"></div>
-            <div>
-                Pontos de interesse<br>
-                <img style="width: 16px" src="https://www.citywatch.com.br/v1/assets/images/alimentacao.png"/>
-                <input type="checkbox" name="cw" title="ALIMENTACAO" value="ALIMENTACAO"/>
+                </div>
+                <br>
+                <center>
+                    Pontos de interesse<br>
+                    <div class="form-group" style="margin: 5px">
+                        <label>
+                            <img style="width: 32px" src="images/alimentacao.png"/>
+                            <input type="checkbox" name="cwA" id="cwAL" checked="" title="ALIMENTACAO" value="ALIMENTACAO" onclick="viewController.doSearch()"/>
+                        </label>
+                    </div>
+                    <div class="form-group" style="margin: 5px">
+                        <label>
+                            <img style="width: 32px" src="images/educacao.png"/>
+                            <input type="checkbox" name="cwE" id="cwED" checked="" title="EDUCACAO" value="EDUCACAO" onclick="viewController.doSearch()"/>
+                        </label>
+                    </div>
+                    <div class="form-group" style="margin: 5px">
+                        <label>
+                            <img style="width: 32px" src="images/saude.png"/>
+                            <input type="checkbox" name="cwS" id="cwSA" checked=""  title="SAUDE" value="SAUDE" onclick="viewController.doSearch()"/>
+                        </label>
+                    </div>
+                    <div class="form-group" style="margin: 5px">
+                        <label>
+                            <img style="width: 32px" src="images/transporte.png"/>
+                            <input type="checkbox" name="cwT" id="cwTR" checked=""  title="TRANSPORTE" value="TRANSPORTE" onclick="viewController.doSearch()"/>
+                        </label>
+                    </div>
+                    <div class="form-group" style="margin: 5px">
+                        <label>
+                            <img style="width: 32px" src="images/seguranca.png"/>
+                            <input type="checkbox" name="cwS" id="cwSE" checked=""  title="SEGURANCA" value="SEGURANCA" onclick="viewController.doSearch()"/>
+                        </label>
+                    </div>
+                    <br>
+                    <br>
+                    <input type="button" name="btBuscar1" value="Buscar" class="load_more_btn" onclick="viewController.doSearch()" style="width:100%"/>
+                </center>
+            </form>
 
-                <img style="width: 16px" src="https://www.citywatch.com.br/v1/assets/images/educacao.png"/>
-                <input type="checkbox" name="cw" title="EDUCACAO" value="EDUCACAO"/>
-
-                <img style="width: 16px" src="https://www.citywatch.com.br/v1/assets/images/saude.png"/>
-                <input type="checkbox" name="cw" title="SAUDE" value="SAUDE"/>
-
-                <img style="width: 16px" src="https://www.citywatch.com.br/v1/assets/images/transporte.png"/>
-                <input type="checkbox" name="cw" title="TRANSPORTE" value="TRANSPORTE"/>
-
-                <img style="width: 16px" src="https://www.citywatch.com.br/v1/assets/images/seguranca.png"/>
-                <input type="checkbox" name="cw" title="SEGURANCA" value="SEGURANCA"/>
-
-            </div>
-
-
-            <input type="button" value="Buscar" style="width: 95%;margin: 5px">
         </div>
         <section style="border: 1px">
 
         </section>
         <section>
+            <ul class="property-listing-type-button" style="position: absolute; z-index: 99; float: right">
+                <li>
+                    <a href="javascript:viewController.showMap()"><i class="fa fa-map-marker"> </i></a>
+                </li>
 
+                <li>
+                    <a href="javascript:viewController.showGrid1()"><i class="fa fa-bars"> </i></a>
+                </li>
+            </ul>
             <div id="grid_canvas" style="display: none"class="property-listing multiple-recent-properties">
                 <div class="container">
 
@@ -231,7 +215,7 @@ $detail = GenimoFrontEnd::getCompany();
                                 }
                                 $url = "https://genimo.com.br/media/" . $pt->idProperty . '/' . $pt->nmFileNameSpotlight;
                                 if (empty($pt->idProperty) || empty($pt->nmFileNameSpotlight)) {
-                                    $url = "https://www.citywatch.com.br/v1/assets/images/logo.png";
+                                    $url = "./images/default_img.png";
                                 }
 
                                 $preco = (!empty($pt->vlSale)) ? "<br>VENDA:" . $pt->vlSale . '<br>' : "";
@@ -244,21 +228,19 @@ $detail = GenimoFrontEnd::getCompany();
                                 $preco = str_replace("BAIXA TEMPORADA:0.00", "", $preco);
                                 //echo "viewController.addPointInfo('" . $pt->nmCategory . "', " . $pt->vlLatitude . ", " . $pt->vlLongitude . ", '" . $pt->nmNeighborhood . "', '" . $preco . "', " . $pt->idProperty . ", '" . $url . "');\n";
                                 ?>
-                                <div class="col-sm-6 col-md-4 col-lg-4">
+                                <div id="imovel<?php echo $pt->idProperty; ?>" class="col-sm-6 col-md-4 col-lg-4">
                                     <div class="image-with-label">
                                         <a  href="property-details.php?id=<?php echo $pt->idProperty; ?>" target="_BLANK">
-                                            <img src="<?php echo $url; ?>" alt="recent-properties-1" class="img-responsive" style="max-height: 270px">
+                                            <img src="<?php echo $url; ?>" alt="recent-properties-1" class="img-responsive" style="max-height: 270px" onerror="this.src='images/default_img.png';">
                                         </a>
                                         <label><?php echo $pt->nmCategory; ?></label>
                                     </div>
-                                    <a href="#"><h6><?php echo $pt->dsAddress; ?></h6></a>
+                                    <a href="property-details.php?id=<?php echo $pt->idProperty; ?>"><h6><?php echo $pt->dsAddress; ?></h6></a>
                                     <span class="recent-properties-address"><?php echo $pt->nmCity; ?> / <?php echo $pt->nmNeighborhood; ?></span>
                                     <p class="recent-properties-price">
                                         <?php echo $preco ?>
                                     </p>
-
                                 </div>
-
                             <?php } ?>
                         </div>
                     </div>
@@ -266,10 +248,7 @@ $detail = GenimoFrontEnd::getCompany();
             </div>
             <div id="map_canvas"></div>
         </section>
-
-
         <section>
-
             <div id="grid_corretores" class="property-listing multiple-recent-properties">
                 <div class="container">
 
@@ -284,13 +263,10 @@ $detail = GenimoFrontEnd::getCompany();
                                 ?>
                                 <div class = "col-sm-6 col-md-4 col-lg-4">
                                     <div class = "image-with-label">
-
                                         <img src ="<?php echo $pt->dsAvatarPath; ?>" alt = "recent-properties-1" style="border-radius: 50%;" class = "img-responsive">
                                         </a>
                                         <label><?php echo $pt->nmPerson . '<br>' . $pt->nuCellPhone ?></label>
                                     </div>
-
-
                                 </div>
 
                             <?php } ?>
@@ -298,7 +274,9 @@ $detail = GenimoFrontEnd::getCompany();
                     </div>
                 </div>
             </div>
+            <!-- Chat -->
 
+            <!-- Fim CHat -->
             <footer>
                 <div class="footer">
                     <span class="footer_copyright_text"><?php echo $detail->company->dsAddress; ?> <?php echo $detail->company->dsAddress2; ?> <?php echo $detail->company->nmCity; ?><br>Powered by <a href="http://morettic.com.br"><b>Morettic</b></a> & <a href="http://morettic.com.br"><b>Pratique Conhecimento</b></a></span>
@@ -317,6 +295,11 @@ $mediaLat = 0;
 $mediaLon = 0;
 $str_points = '';
 $points = $detail->properties;
+/*
+  echo '<pre>';
+  var_dump($points);
+  die();
+ */
 $cityName = "";
 foreach ($points as $pt) {
     $cityName = $pt->nmCity;
@@ -325,7 +308,7 @@ foreach ($points as $pt) {
     }
     $url = "https://genimo.com.br/media/" . $pt->idProperty . '/' . $pt->nmFileNameSpotlight;
     if (empty($pt->idProperty) || empty($pt->nmFileNameSpotlight)) {
-        $url = "https://www.citywatch.com.br/v1/assets/images/logo.png";
+        $url = "/images/default_img.png";
     }
 
     $preco = (!empty($pt->vlSale)) ? "<br>VENDA:" . $pt->vlSale . '<br>' : "";
@@ -338,7 +321,7 @@ foreach ($points as $pt) {
     $preco = str_replace("BAIXA TEMPORADA:0.00", "", $preco);
 
     //echo "<!-- $url -->";
-    echo "viewController.addPointInfo('" . $pt->nmCategory . "', " . $pt->vlLatitude . ", " . $pt->vlLongitude . ", '" . $pt->nmNeighborhood . "', '" . $preco . "', " . $pt->idProperty . ", '" . $url . "');\n";
+    echo "viewController.addPointInfo('" . $pt->cdMode . "','" . $pt->nmCity . "','" . $pt->nmCategory . "', " . $pt->vlLatitude . ", " . $pt->vlLongitude . ", '" . $pt->nmNeighborhood . "', '" . $preco . "', " . $pt->idProperty . ", '" . $url . "');\n";
     $count++;
     $mediaLat+=$pt->vlLatitude;
     $mediaLon+=$pt->vlLongitude;
@@ -353,146 +336,12 @@ foreach ($vet as $obj) {
     echo 'viewController.addPoint("' . $obj->tit . '", "' . $obj->lat . '", "' . $obj->lon . '", "' . $obj->tipo . '", "' . $obj->desc . '");';
     echo "\n";
 }
+
+include_once './index.inc.php';
 ?>
-                            var map;
-                            var options = {
-                                enableHighAccuracy: true,
-                                timeout: 5000,
-                                maximumAge: 0
-                            };
-                            function success(pos) {
-                                var crd = pos.coords;
-                                console.log('Your current position is:');
-                                console.log('Latitude : ' + crd.latitude);
-                                console.log('Longitude: ' + crd.longitude);
-                                console.log('More or less ' + crd.accuracy + ' meters.');
-                                var mapOptions = {
-                                    zoom: 12,
-                                    center: new google.maps.LatLng(<?php echo $mediaLat; ?>, <?php echo $mediaLon; ?>),
-                                    mapTypeId: google.maps.MapTypeId.ROADMAP,
-                                    styles: [{"featureType": "administrative", "elementType": "labels.text.fill", "stylers": [{"color": "#6195a0"}]}, {"featureType": "landscape", "elementType": "all", "stylers": [{"color": "#f2f2f2"}]}, {"featureType": "landscape", "elementType": "geometry.fill", "stylers": [{"color": "#ffffff"}]}, {"featureType": "poi", "elementType": "all", "stylers": [{"visibility": "off"}]}, {"featureType": "poi.park", "elementType": "geometry.fill", "stylers": [{"color": "#e6f3d6"}, {"visibility": "on"}]}, {"featureType": "road", "elementType": "all", "stylers": [{"saturation": -100}, {"lightness": 45}, {"visibility": "simplified"}]}, {"featureType": "road.highway", "elementType": "all", "stylers": [{"visibility": "simplified"}]}, {"featureType": "road.highway", "elementType": "geometry.fill", "stylers": [{"color": "#f4d2c5"}, {"visibility": "simplified"}]}, {"featureType": "road.highway", "elementType": "labels.text", "stylers": [{"color": "#4e4e4e"}]}, {"featureType": "road.arterial", "elementType": "geometry.fill", "stylers": [{"color": "#f4f4f4"}]}, {"featureType": "road.arterial", "elementType": "labels.text.fill", "stylers": [{"color": "#787878"}]}, {"featureType": "road.arterial", "elementType": "labels.icon", "stylers": [{"visibility": "off"}]}, {"featureType": "transit", "elementType": "all", "stylers": [{"visibility": "off"}]}, {"featureType": "water", "elementType": "all", "stylers": [{"color": "#eaf6f8"}, {"visibility": "on"}]}, {"featureType": "water", "elementType": "geometry.fill", "stylers": [{"color": "#eaf6f8"}]}]
-                                };
-                                map = new google.maps.Map(document.getElementById('map_canvas'), mapOptions);
-
-                                viewController.showFull();
-                            }
-                            function error(err) {
-                                console.warn('ERROR(' + err.code + '): ' + err.message);
-                            }
-                            ;
-                            navigator.geolocation.getCurrentPosition(success, error, options);
-
-                            function showDiv(divName) {
-                                document.getElementById(divName).style.display = "block";
-                            }
-                            function hideDiv(divName) {
-                                document.getElementById(divName).style.display = "none";
-                            }
-
-                            $(function() {
-                                $("#divFaixaPreco").dialog({
-                                    height: 300,
-                                    width: 400,
-                                    zIndex: 999,
-                                    autoOpen: false,
-                                    modal: true
-                                });
-                            });
-                            $(function() {
-                                $("#divQuarto").dialog({
-                                    height: 300,
-                                    width: 400,
-                                    zIndex: 999,
-                                    autoOpen: false,
-                                    modal: true
-                                });
-                            });
-                            $(function() {
-                                $("#divSuite").dialog({
-                                    height: 300,
-                                    width: 400,
-                                    zIndex: 999,
-                                    autoOpen: false,
-                                    modal: true
-                                });
-                            });
-                            $(function() {
-                                $("#divFaixaArea").dialog({
-                                    height: 300,
-                                    width: 400,
-                                    zIndex: 999,
-                                    autoOpen: false,
-                                    modal: true
-                                });
-                            });
-                            $(function() {
-                                $("#divVaga").dialog({
-                                    height: 300,
-                                    width: 400,
-                                    zIndex: 999,
-                                    autoOpen: false,
-                                    modal: true
-                                });
-                            });
-                            $(function() {
-                                $("#divFaixaArea").dialog({
-                                    height: 300,
-                                    width: 400,
-                                    zIndex: 999,
-                                    autoOpen: false,
-                                    modal: true
-                                });
-                            });
-                            $(function() {
-                                $("#divImovelDetail").dialog({
-                                    height: 300,
-                                    width: 400,
-                                    zIndex: 999,
-                                    autoOpen: false,
-                                    modal: true
-                                });
-                            });
-                            $(function() {
-                                $("#divFilterDetail").dialog({
-                                    height: 380,
-                                    width: 400,
-                                    zIndex: 999,
-                                    autoOpen: false,
-                                    modal: true
-                                });
-                            });
-
-
-                            $(function() {
-                                $("#slider-range").slider({
-                                    range: true,
-                                    min: 0,
-                                    max: 5000000,
-                                    values: [75000, 3000000],
-                                    slide: function(event, ui) {
-                                        $("#amount").val("R$" + ui.values[0] + " - R$" + ui.values[1]);
-                                    }
-                                });
-                                $("#amount").val("$" + $("#slider-range").slider("values", 0) +
-                                        " - $" + $("#slider-range").slider("values", 1));
-
-                                $("#slider-range1").slider({
-                                    range: true,
-                                    min: 0,
-                                    max: 1000,
-                                    values: [50, 200],
-                                    slide: function(event, ui) {
-                                        $("#amount1").val(ui.values[0] + '-' + ui.values[1]);
-                                    }
-                                });
-                                $("#amount1").val("$" + $("#slider-range1").slider("values", 0) +
-                                        " - $" + $("#slider-range1").slider("values", 1));
-                                viewController.showFilter();
-                                //viewController.showGrid1();
-                            });
-
 
             </script>
+            <?php include 'chat.php'; ?>
 
     </body>
 </html>

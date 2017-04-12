@@ -424,10 +424,35 @@ $detail = GenimoFrontEnd::getDetail($id);
 
                                     <form name="contact_form" method="post" action="<?php ?>" onsubmit="return viewController.validateForm(document.contact_form.full_name, document.contact_form.phone_number, document.contact_form.email_address, document.contact_form.message)">
                                         <?php
+                                        $name = empty($_POST['full_name']) ? "" : $_POST['full_name'];
+                                        $email = empty($_POST['email_address']) ? "" : $_POST['email_address'];
                                         if (!empty($_POST['id'])) {
                                             GenimoFrontEnd::addSiteContact($_POST['full_name'], $_POST['email_address'], $_POST['phone_number'], $_POST['message'], $id, $_POST['idBookie'], $_POST['tp_contact']);
                                         }
                                         ?>
+                                        <script>
+                                            /**
+                                             *  @ Mautic CRM Integração
+                                             *
+                                             * */
+                                            (function(w, d, t, u, n, a, m) {
+                                                w['MauticTrackingObject'] = n;
+                                                w[n] = w[n] || function() {
+                                                    (w[n].q = w[n].q || []).push(arguments)
+                                                }, a = d.createElement(t),
+                                                        m = d.getElementsByTagName(t)[0];
+                                                a.async = 1;
+                                                a.src = u;
+                                                m.parentNode.insertBefore(a, m)
+                                            })(window, document, 'script', 'https://inbound.citywatch.com.br/mtc.js', 'mt');
+                                            mt(
+                                                    'send',
+                                                    'pageview',
+                                                    {email: '<?php echo $email; ?>', firstname: '<?php echo $name; ?>'},
+                                            {onload: function() {
+                                                    alert("Tracking request is loaded");
+                                                }});
+                                        </script>
                                         <input type="text" id="fname" name="full_name" placeholder="Nome completo" required />
                                         <input type="number" id="pnumber" name="phone_number" placeholder="Número telefone" required onkeypress="mascara(this, mtel)"/>
                                         <input type="email" id="emailid" name="email_address" placeholder="Endereço de email" required />

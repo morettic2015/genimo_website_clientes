@@ -24,6 +24,74 @@ var GenimoFrontEnd = function() {
         $("#divFilterDetail").dialog("open");
     }
 
+    this.doSearch = function() {
+        whatId = document.getElementById('whatId').value;
+        howId = document.getElementById('howId').value;
+        for (i = 0; i < objectOne.lPoints.length; i++) {
+            if (objectOne.lPoints[i].tp == "SAUDE") {
+                if (document.getElementById('cwSA').checked) {
+                    objectOne.lPoints[i].marker.setMap(map);
+                } else {
+                    objectOne.lPoints[i].marker.setMap(null);
+                }
+            } else if (objectOne.lPoints[i].tp == "EDUCACAO") {
+                if (document.getElementById('cwED').checked) {
+                    objectOne.lPoints[i].marker.setMap(map);
+                } else {
+                    objectOne.lPoints[i].marker.setMap(null);
+                }
+            } else if (objectOne.lPoints[i].tp == "TRANSPORTE") {
+                if (document.getElementById('cwTR').checked) {
+                    objectOne.lPoints[i].marker.setMap(map);
+                } else {
+                    objectOne.lPoints[i].marker.setMap(null);
+                }
+            } else if (objectOne.lPoints[i].tp == "SEGURANCA") {
+                if (document.getElementById('cwSE').checked) {
+                    objectOne.lPoints[i].marker.setMap(map);
+                } else {
+                    objectOne.lPoints[i].marker.setMap(null);
+                }
+            } else if (objectOne.lPoints[i].tp == "ALIMENTACAO") {
+                if (document.getElementById('cwAL').checked) {
+                    objectOne.lPoints[i].marker.setMap(map);
+                } else {
+                    objectOne.lPoints[i].marker.setMap(null);
+                }
+            } else if (objectOne.lPoints[i].tp == "IMOVEIS") {
+                var o1 = objectOne.lPoints[i];
+                var show1 = false;
+                var show2 = false;
+                if (whatId == '*') {
+                    show1 = true;
+                } else if (whatId == objectOne.lPoints[i].cdMode) {
+                    show1 = true;
+                } else {
+                    false;
+                }
+
+                if (howId == '*') {
+                    show2 = true;
+                } else if (howId == objectOne.lPoints[i].title) {
+                    show2 = true;
+                } else {
+                    false;
+                }
+                var idImovel = "imovel" + objectOne.lPoints[i].id;
+                var imovel = document.getElementById(idImovel);
+                if (show1 && show2) {
+                    imovel.style.display = 'block';
+                    imovel.style.visibility = 'visible';
+                    objectOne.lPoints[i].marker.setMap(map);
+                } else {
+                    objectOne.lPoints[i].marker.setMap(null);
+                    imovel.style.display = 'none';
+                    imovel.style.visibility = 'hidden';
+                }
+            }
+        }
+    }
+
     this.showFull = function() {
         for (i = 0; i < objectOne.lPoints.length; i++) {
             objectOne.lPoints[i].marker = new google.maps.Marker({
@@ -31,25 +99,25 @@ var GenimoFrontEnd = function() {
                 icon: iconC,
                 title: objectOne.lPoints[i].title
             });
-            var iconC = "images/map_marker.png";
+            var iconC = "images/imoveis_2.png";
             if (objectOne.lPoints[i].tp == "SAUDE") {
-                iconC = "https://www.citywatch.com.br/v1/assets/images/saude.png";
+                iconC = "images/saude.png";
             } else if (objectOne.lPoints[i].tp == "EDUCACAO") {
-                iconC = "https://www.citywatch.com.br/v1/assets/images/educacao.png";
+                iconC = "images/educacao.png";
             } else if (objectOne.lPoints[i].tp == "TRANSPORTE") {
-                iconC = "https://www.citywatch.com.br/v1/assets/images/transporte.png";
+                iconC = "images/transporte.png";
             } else if (objectOne.lPoints[i].tp == "SEGURANCA") {
-                iconC = "https://www.citywatch.com.br/v1/assets/images/seguranca.png";
+                iconC = "images/seguranca.png";
             } else if (objectOne.lPoints[i].tp == "ALIMENTACAO") {
-                iconC = "https://www.citywatch.com.br/v1/assets/images/alimentacao.png";
+                iconC = "images/alimentacao.png";
             } else if (objectOne.lPoints[i].tp == "IMOVEIS") {
-                iconC = "images/map_marker.png";
+                iconC = "images/imoveis_2.png";
 
                 objectOne.lPoints[i].infoWindow = new google.maps.InfoWindow({
                     content: objectOne.lPoints[i].contentString
                 });
                 objectOne.lPoints[i].marker.addListener('click', function() {
-                    contentString = '<div id="content"><h1>' + objectOne.lPoints[this.idPos].title + '</h1><br><img style="border-radius: 15%;width:120px" src="' + objectOne.lPoints[this.idPos].pic + '"/>' + objectOne.lPoints[this.idPos].preco + '<br><a href=property-details.php?id=' + objectOne.lPoints[this.idPos].id + '>Ver mais</a></div>';
+                    contentString = '<div id="content"><h1>' + objectOne.lPoints[this.idPos].title + '</h1><br><img style="width:100%;max-height:120px" src="' + objectOne.lPoints[this.idPos].pic + '"/>' + objectOne.lPoints[this.idPos].preco + '<br><a class="load_more_btn" style="width:100%" href=property-details.php?id=' + objectOne.lPoints[this.idPos].id + '>Ver mais</a></div>';
                     document.getElementById('divImovelDetail').innerHTML = contentString;
                     $("#divImovelDetail").dialog("open");
                     //objectOne.lPoints[i].infoWindow.open(map, objectOne.lPoints[i].marker);
@@ -62,7 +130,7 @@ var GenimoFrontEnd = function() {
             objectOne.lPoints[i].marker.setMap(map);
         }
     }
-    this.addPointInfo = function(title, lat, lon, bairro, preco, id, pic) {
+    this.addPointInfo = function(cdMode, nmCity, title, lat, lon, bairro, preco, id, pic) {
         if (objectOne.lPoints == undefined) {
             objectOne.lPoints = [];
         }
@@ -74,6 +142,8 @@ var GenimoFrontEnd = function() {
         localPoint.pic = pic;
         localPoint.preco = preco;
         localPoint.id = id;
+        localPoint.cdMode = cdMode;
+        localPoint.nmCity = nmCity;
         localPoint.tp = "IMOVEIS";
 
         objectOne.lPoints.push(localPoint);
